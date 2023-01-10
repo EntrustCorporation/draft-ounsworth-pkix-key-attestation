@@ -1,0 +1,224 @@
+
+
+
+
+LAMPS                                                       M. Ounsworth
+Internet-Draft                                                   Entrust
+Intended status: Standards Track                           R. Kettlewell
+Expires: 14 July 2023                                  Entrust - nCipher
+                                                         10 January 2023
+
+
+                      PKIX Key Attestation Format
+                draft-ounsworth-pkix-key-attestation-00
+
+Abstract
+
+   ... the FIDO2 key attestation sux; we want an ANS.1 one ... maybe
+   write something better here.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ounsworth-pkix-key-
+   attestation/.
+
+   Discussion of this document takes place on the Limited Additional
+   Mechanisms for PKIX and SMIME (lamps) Working Group mailing list
+   (mailto:spasm@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/spasm/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/spasm/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-
+   keys.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+
+
+
+Ounsworth & Kettlewell    Expires 14 July 2023                  [Page 1]
+
+Internet-Draft            PKIX Key Attestation              January 2023
+
+
+   This Internet-Draft will expire on 14 July 2023.
+
+Copyright Notice
+
+   Copyright (c) 2023 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   3.  Main Stuff Section  . . . . . . . . . . . . . . . . . . . . .   2
+   4.  Implementation Considerations . . . . . . . . . . . . . . . .   3
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   3
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   3
+   7.  Normative References  . . . . . . . . . . . . . . . . . . . .   3
+   Appendix A.  Samples  . . . . . . . . . . . . . . . . . . . . . .   3
+   Appendix B.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .   3
+   Appendix C.  Intellectual Property Considerations . . . . . . . .   4
+   Appendix D.  Contributors and Acknowledgements  . . . . . . . . .   4
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   4
+
+1.  Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+2.  Introduction
+
+   ... intro goes here ...
+
+3.  Main Stuff Section
+
+   ... main stuff goes here ...
+
+
+
+
+
+Ounsworth & Kettlewell    Expires 14 July 2023                  [Page 2]
+
+Internet-Draft            PKIX Key Attestation              January 2023
+
+
+4.  Implementation Considerations
+
+   ... document any (non-security) GOTCHAs ...
+
+5.  IANA Considerations
+
+   ... document any codepoints or OIDs that we need IANA to register ...
+
+6.  Security Considerations
+
+   ... document any (security) GOTCHAs ...
+
+7.  Normative References
+
+   [RFC2119]  Bradner, S. and RFC Publisher, "Key words for use in RFCs
+              to Indicate Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC8174]  Leiba, B. and RFC Publisher, "Ambiguity of Uppercase vs
+              Lowercase in RFC 2119 Key Words", BCP 14, RFC 8174,
+              DOI 10.17487/RFC8174, May 2017,
+              <https://www.rfc-editor.org/info/rfc8174>.
+
+   [RFC8411]  Schaad, J., Andrews, R., and RFC Publisher, "IANA
+              Registration for the Cryptographic Algorithm Object
+              Identifier Range", RFC 8411, DOI 10.17487/RFC8411, August
+              2018, <https://www.rfc-editor.org/info/rfc8411>.
+
+   [X.690]    ITU-T, "Information technology - ASN.1 encoding Rules:
+              Specification of Basic Encoding Rules (BER), Canonical
+              Encoding Rules (CER) and Distinguished Encoding Rules
+              (DER)", ISO/IEC 8825-1:2015, November 2015.
+
+Appendix A.  Samples
+
+   ... either place samples here inline, or reference a github.  I've
+   got a script I've used in other I-Ds to inline include files, if
+   that's useful here.
+
+Appendix B.  ASN.1 Module
+
+   ... any ASN.1 that we are defining goes here ...
+
+   <CODE STARTS>
+
+   <CODE ENDS>
+
+
+
+
+Ounsworth & Kettlewell    Expires 14 July 2023                  [Page 3]
+
+Internet-Draft            PKIX Key Attestation              January 2023
+
+
+Appendix C.  Intellectual Property Considerations
+
+   ... mention any IP considerations here ...
+
+Appendix D.  Contributors and Acknowledgements
+
+   This document incorporates contributions and comments from a large
+   group of experts.  The Editors would especially like to acknowledge
+   the expertise and tireless dedication of the following people, who
+   attended many long meetings and generated millions of bytes of
+   electronic mail and VOIP traffic over the past year in pursuit of
+   this document:
+
+   ... list of helpful people ...
+
+   We are grateful to all, including any contributors who may have been
+   inadvertently omitted from this list.
+
+   This document borrows text from similar documents, including those
+   referenced below.  Thanks go to the authors of those documents.
+   "Copying always makes things easier and less error prone" -
+   [RFC8411].
+
+Authors' Addresses
+
+   Mike Ounsworth
+   Entrust Limited
+   2500 Solandt Road -- Suite 100
+   Ottawa, Ontario  K2K 3G5
+   Canada
+   Email: mike.ounsworth@entrust.com
+
+
+   Richard Kettlewell
+   Entrust - nCipher Security Limited
+   One Station Square
+   Cambridge
+   CB1 2GA
+   United Kingdom
+   Email: richard.kettlewell@entrust.com
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth & Kettlewell    Expires 14 July 2023                  [Page 4]

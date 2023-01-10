@@ -1,0 +1,162 @@
+---
+title: PKIX Key Attestation Format
+abbrev: PKIX Key Attestation
+# <!-- EDNOTE: Edits the draft name -->
+docname: draft-ounsworth-pkix-key-attestation-00
+
+# <!-- stand_alone: true -->
+ipr: trust200902
+area: Security
+stream: IETF
+wg: LAMPS
+kw: Internet-Draft
+cat: std
+venue:
+  group: "Limited Additional Mechanisms for PKIX and SMIME (lamps)"
+  type: "Working Group"
+  mail: "spasm@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/spasm/"
+  github: "EntrustCorporation/draft-ounsworth-pq-composite-keys"
+
+coding: us-ascii
+pi:    # can use array (if all yes) or hash here
+  toc: yes
+  sortrefs:   # defaults to yes
+  symrefs: yes
+
+author:
+    -
+      ins: M. Ounsworth
+      name: Mike Ounsworth
+      org: Entrust Limited
+      abbrev: Entrust
+      street: 2500 Solandt Road – Suite 100
+      city: Ottawa, Ontario
+      country: Canada
+      code: K2K 3G5
+      email: mike.ounsworth@entrust.com
+
+    -
+      ins: R. Kettlewell
+      name: Richard Kettlewell
+      org: Entrust - nCipher Security Limited
+      abbrev: Entrust - nCipher
+      street: One Station Square
+      city: Cambridge
+      country: United Kingdom
+      code: CB1 2GA
+      email: richard.kettlewell@entrust.com
+
+normative:
+  RFC2119:
+  RFC8174:
+  RFC8411:
+  #<!-- I'm leaving the ref to X.690 in because I suspect we're gonna need it -->
+  X.690:
+      title: "Information technology - ASN.1 encoding Rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)"
+      date: November 2015
+      author:
+        org: ITU-T
+      seriesinfo:
+        ISO/IEC: 8825-1:2015
+
+
+# <!-- EDNOTE: full syntax for this defined here: https://github.com/cabo/kramdown-rfc2629 -->
+
+informative:
+
+
+--- abstract
+
+... the FIDO2 key attestation sux; we want an ANS.1 one ... maybe write something better here.
+
+<!-- End of Abstract -->
+
+--- middle
+
+
+# Terminology {#sec-terminology}
+{::boilerplate bcp14}
+
+
+# Introduction {#sec-intro}
+
+... intro goes here ...
+
+
+<!-- End of Introduction section -->
+
+
+# Main Stuff Section
+
+... main stuff goes here ...
+
+
+
+# Implementation Considerations {#sec-imp-considers}
+
+... document any (non-security) GOTCHAs ...
+
+
+<!-- End of In Practice section -->
+
+
+
+# IANA Considerations {#sec-iana}
+
+... document any codepoints or OIDs that we need IANA to register ...
+
+<!-- End of IANA Considerations section -->
+
+
+# Security Considerations
+
+... document any (security) GOTCHAs ...
+
+<!-- End of Security Considerations section -->
+
+
+<!-- Start of Appendices -->
+--- back
+
+# Samples {#appdx-samples}
+
+... either place samples here inline, or reference a github.
+I've got a script I've used in other I-Ds to inline include files, if that's useful here.
+
+
+
+# ASN.1 Module
+
+... any ASN.1 that we are defining goes here ...
+
+
+~~~ ASN.1
+
+<CODE STARTS>
+
+<CODE ENDS>
+
+~~~
+
+
+# Intellectual Property Considerations
+
+... mention any IP considerations here ...
+
+
+
+# Contributors and Acknowledgements
+This document incorporates contributions and comments from a large group of experts. The Editors would especially like to acknowledge the expertise and tireless dedication of the following people, who attended many long meetings and generated millions of bytes of electronic mail and VOIP traffic over the past year in pursuit of this document:
+
+... list of helpful people ...
+
+We are grateful to all, including any contributors who may have
+been inadvertently omitted from this list.
+
+This document borrows text from similar documents, including those referenced below. Thanks go to the authors of those
+   documents.  "Copying always makes things easier and less error prone" - [RFC8411].
+
+<!-- End of Contributors section -->
+
+

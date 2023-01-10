@@ -1,0 +1,33 @@
+# PKIX Key Attestation Format
+
+
+## Setting up a build environment
+
+There may be a way to do this in cygwin, but I cut losses and did it in ubuntu:
+
+    $ sudo apt-get install ruby-full
+    $ sudo gem install kramdown-rfc2629
+    $ sudo apt-get install xml2rfc
+
+
+## Using the makefile
+
+We have provided a makefile to build the draft in either pure TXT, or fancy HTML formats:
+
+    $ make clean
+
+    $ make txt
+    or
+    $ make html
+    or, to make both, simply
+    $ make
+
+The default target will build both:
+
+    $ make clean
+    $ make
+
+
+## Editing Etiquette
+
+When checking in changes to the document source (`.mkd`), please also check in the modified `.txt` for those who wish to review changes (diffs) in their browser.
