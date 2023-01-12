@@ -1,0 +1,27 @@
+Issuer:      C = GB, O = ACME, OU = Security, CN = HSM Attestation root
+Subject:     C = GB, O = ACME, OU = Production, CN = UK manufacturing CA
+
+Type:        Device identity certificate
+Vendor:      ACME
+Model:       SignMaster 9000
+Serial:      0293b07e-01b4-4836-99d2-8a5d3f9fae6e
+Issuer:      C = GB, O = ACME, OU = Production, CN = UK manufacturing CA
+Subject:     O = ACME, CN = 0293b07e-01b4-4836-99d2-8a5d3f9fae6e
+
+Type:        Device delegation certificate
+Vendor:      ACME
+Model:       SignMaster 9000
+Serial:      0293b07e-01b4-4836-99d2-8a5d3f9fae6e
+SubkeyRole:  KOA
+Issuer:      O = ACME, CN = 0293b07e-01b4-4836-99d2-8a5d3f9fae6e
+Subject:     O = ACME, CN = 623ea754-ffdb-4c1f-825c-07d16ace1cf6
+
+Type:        Key attestation certificate
+Vendor:      ACME
+Model:       SignMaster 9000
+Serial:      0293b07e-01b4-4836-99d2-8a5d3f9fae6e
+Policy:      SignatureOnly
+Vendor info: 76 65 6e 64 6f 72 2d 73 70 65 63 69 66 69 63 20 69 6e 66 6f 72 6d 61 74 69 6f 6e 20 67 6f 65 73 20 68 65 72 65
+Issuer:      O = ACME, CN = 623ea754-ffdb-4c1f-825c-07d16ace1cf6
+Subject:     CN = 8ee89f19-83c6-4317-bf0c-6d8a5a257002
+
