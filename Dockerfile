@@ -14,3 +14,4 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 RUN gem install kramdown-rfc2629
+RUN mkdir -m 777 /var/cache/xml2rfc

@@ -10,7 +10,7 @@
 <meta content="
        This document describes syntax for conveying key origin attestation information to a Certification Authority (CA) or other entity,
 so that they may decide how much trust to place in the management private of the key,
-for example to support a decision about whether to issue a certificate. 
+for example to support a decision about whether to issue a certificate. In contrast to other key attestation formats, the one defined in this document requires only ASN.1 and the standard PKIX modules. 
        
 
 
@@ -1178,11 +1178,11 @@ li > p:last-of-type {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PKIX Key Attestation</td>
-<td class="right">January 2023</td>
+<td class="right">February 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth &amp; Kettlewell</td>
-<td class="center">Expires 15 July 2023</td>
+<td class="center">Expires 24 August 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1195,12 +1195,12 @@ li > p:last-of-type {
 <dd class="internet-draft">draft-ounsworth-pkix-key-attestation-00</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-01-11" class="published">11 January 2023</time>
+<time datetime="2023-02-20" class="published">20 February 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-07-15">15 July 2023</time></dd>
+<dd class="expires"><time datetime="2023-08-24">24 August 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1219,7 +1219,7 @@ li > p:last-of-type {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document describes syntax for conveying key origin attestation information to a Certification Authority (CA) or other entity,
 so that they may decide how much trust to place in the management private of the key,
-for example to support a decision about whether to issue a certificate.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+for example to support a decision about whether to issue a certificate. In contrast to other key attestation formats, the one defined in this document requires only ASN.1 and the standard PKIX modules.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document-2">
@@ -1255,7 +1255,7 @@ for example to support a decision about whether to issue a certificate.<a href="
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 July 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1314,19 +1314,22 @@ for example to support a decision about whether to issue a certificate.<a href="
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-key-attestations-2" class="xref">Key Attestations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-intermediate-ca-certificate-2" class="xref">Intermediate CA Certificate</a></p>
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-key-attestation-bundle-2" class="xref">Key Attestation Bundle</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
-                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-device-identity-certificate-2" class="xref">Device Identity Certificate</a></p>
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-intermediate-ca-certificate-2" class="xref">Intermediate CA Certificate</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-device-delegation-certificat" class="xref">Device Delegation Certificate</a></p>
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-device-identity-certificate-2" class="xref">Device Identity Certificate</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
-                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-key-attestation-certificate-2" class="xref">Key Attestation Certificate</a></p>
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-device-delegation-certificat" class="xref">Device Delegation Certificate</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5">
+                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="xref">4.5</a>.  <a href="#name-key-attestation-certificate-2" class="xref">Key Attestation Certificate</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4.2.1">
-                    <p id="section-toc.1-1.4.2.4.2.1.1"><a href="#section-4.4.1" class="xref">4.4.1</a>.  <a href="#name-vendor-specific-information-2" class="xref">Vendor-Specific Information</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5.2.1">
+                    <p id="section-toc.1-1.4.2.5.2.1.1"><a href="#section-4.5.1" class="xref">4.5.1</a>.  <a href="#name-vendor-specific-information-2" class="xref">Vendor-Specific Information</a></p>
 </li>
                 </ul>
 </li>
@@ -1370,10 +1373,21 @@ for example to support a decision about whether to issue a certificate.<a href="
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
                 <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="xref">9.3</a>.  <a href="#name-policies-with-administrator-" class="xref">Policies with Administrator Override</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="xref">9.4</a>.  <a href="#name-uniqueness-of-keys-2" class="xref">Uniqueness of Keys</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-normative-references-2" class="xref">Normative References</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-references-2" class="xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="xref">10.1</a>.  <a href="#name-normative-references-2" class="xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="xref">10.2</a>.  <a href="#name-informative-references-2" class="xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="xref">Appendix A</a>.  <a href="#name-samples-2" class="xref">Samples</a></p>
@@ -1402,9 +1416,8 @@ for example to support a decision about whether to issue a certificate.<a href="
 <p id="section-1-1">Key attestion refers to the originator of a cryptographic key pair providing information about the provenance of that key pair,
 in a manner that can be cryptographically verified.
 The information provided may include, for example, the model and identity of the device that created the key pair
-and any policies that may be enforced upon the use of the private key.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This information can be used by a Certification Authority to decide whether to issue a certificate,
-or by other entities for their own purposes.<a href="#section-1-2" class="pilcrow">¶</a></p>
+and any policies that may be enforced upon the use of the private key, contained in a cryptographic envelope that can be chained to a manufacturing public key of the device vendor.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">This information can be used by a Certification Authority (CA) to decide whether to issue a certificate, to apply a given policy or certificate template, or by other entities for their own purposes. The CA may choose to publish some or all of the key attestation data in the certificate for the use of parties that will rely on this certificate.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">Many devices, including Hardware Security Modules, provide attestation information of some form in proprietary formats.
 A common syntax for key attestations is required to reduce the implementation burden on CA implementors and operators.
 Furthermore it is desirable that the syntax is sympathetic to existing CA implementations.<a href="#section-1-3" class="pilcrow">¶</a></p>
@@ -1428,77 +1441,114 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-cryptographic-keys-2" class="section-name selfRef">Cryptographic Keys</a>
       </h2>
 <p id="section-3-1">This section describes the cryptographic keys referenced in this document.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<div id="trust-anchor-key">
+<div id="sec-trust-anchor">
 <section id="section-3.1">
         <h3 id="name-trust-anchor-key-2">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-trust-anchor-key-2" class="section-name selfRef">Trust Anchor Key</a>
         </h3>
 <p id="section-3.1-1">A trust anchor key is a signing key held by a vendor.
-It is used either to sign devices directly or to sign intermediate CA keys.
-It may  be used to sign intermediate CAs or it may be used to sign devices directly.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+For the purposes of this document, a trust anchor may be a proper Trust Anchor as defined in <span>[<a href="#RFC5914" class="xref">RFC5914</a>]</span>, or a root certification authority as defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>.
+It is used either to directly sign device identity keys as defined in <a href="#sec-devidkey" class="xref">Section 3.3</a> or to sign intermediate CA keys.
+A trust anchor key MUST be associated with a vendor identity.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">Constraints:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1-3.1">A trust anchor key MUST NOT be used for any purpose other than signing intermediate CA keys or devices.<a href="#section-3.1-3.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.1-3.1">A trust anchor key MUST only be used for purposes consistent with signing intermediate CA keys or devices (i.e. signing delegation certificates, CRLs, etc).<a href="#section-3.1-3.1" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
 </div>
-<div id="intermediate-ca-key">
+<div id="sec-intca">
 <section id="section-3.2">
         <h3 id="name-intermediate-ca-key-2">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-intermediate-ca-key-2" class="section-name selfRef">Intermediate CA Key</a>
         </h3>
-<p id="section-3.2-1">An intermediate CA key is a signing key held by a vendor and certified by that vendor's trust anchor.
-It is used either to sign devices directly or to sign further intermediate CA keys.
-Like a trust anchor key, it may only used to sign intermediate CAs or it may be used to sign devices directly.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">The exact configuration and management of trust anchor keys and intermediate CA keys is beyond the scope of this document.
+<p id="section-3.2-1">An intermediate CA key is a signing key held by a vendor and certified by that vendor's trust anchor.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">It can be used for one of two purposes:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2-3.1">to certify device identity keys (see section <a href="#sec-devidkey" class="xref">Section 3.3</a>) by signing device identity certificates (see section <a href="#sec-ka-dic" class="xref">Section 4.3</a>)<a href="#section-3.2-3.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.2-3.2">to certify further intermediate CA keys<a href="#section-3.2-3.2" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-3.2-4">The exact configuration and management of trust anchor keys and intermediate CA keys is beyond the scope of this document.
 An example configuration is that a vendor have an offline trust anchor,
 and an intermediate CA in each of its manufacturing sites,
-certified by the trust anchor key when a manufacturing site is created or during maintenance or recovery activities.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2-3">Constraints:<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+certified by the trust anchor key when a manufacturing site is created or during maintenance or recovery activities.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-5">It may be impossible recertify a device after manufacture,
+and it may be impossible for a manufacturer to know when a device has been retired from use.
+Therefore:<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.2-4.1">An intermediate CA key MUST NOT be used for any purpose other than signing intermediate CA keys or devices.<a href="#section-3.2-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.2-6.1">an intermediate CA need not track and public revocation information<a href="#section-3.2-6.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.2-6.2">intermediate CA keys MAY have a expiration date of 99991231235959Z (<span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> section 4.1.2.5).<a href="#section-3.2-6.2" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-3.2-7">Constraints:<a href="#section-3.2-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2-8.1">An intermediate CA key MUST only be used for purposes consistent with certifying intermediate CA keys (i.e. signing delegation certificates, CRLs, etc) or devices.<a href="#section-3.2-8.1" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
 </div>
-<div id="device-identity-key">
+<div id="sec-devidkey">
 <section id="section-3.3">
         <h3 id="name-device-identity-key-2">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-device-identity-key-2" class="section-name selfRef">Device Identity Key</a>
         </h3>
 <p id="section-3.3-1">A device identity key is a signing key held by a device.
-It is used either to sign key attestations directly or to certify device certification subkeys.
+It is assumed that the key is unique to the device and cannot be extracted
+or used for any purpose other than the ones listed below.
 It is envisaged that this key will persist for the lifetime of the device.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.3-2">Constraints:<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">It can be used for one of two purposes:<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.3-3.1">A device identity key MUST NOT be used for any purpose other than signing key attestation certificates or device delegation certificates.<a href="#section-3.3-3.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.3-3.1">to sign key attestations directly<a href="#section-3.3-3.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.3-3.2">to sign device delegation certificates (see section <a href="#sec-ka-ddc" class="xref">Section 4.4</a>), which are used to certify device certification subkeys (see section <a href="#sec-devsubkeys" class="xref">Section 3.4</a>).<a href="#section-3.3-3.2" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-3.3-4">Constraints:<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.3-5.1">A device identity key MUST NOT be used for any purpose other than signing key attestation certificates or device delegation certificates.<a href="#section-3.3-5.1" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
 </div>
-<div id="device-certification-subkey">
+<div id="sec-devsubkeys">
 <section id="section-3.4">
         <h3 id="name-device-certification-subkey-2">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-device-certification-subkey-2" class="section-name selfRef">Device Certification Subkey</a>
         </h3>
 <p id="section-3.4-1">A device certification key is a signing key held by a device.
-It is used either to sign key attestations directly or to certify further device certification subkeys.
-Device certification keys may have any lifetime, from single use to the lifetime of the device.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2">Constraints:<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+It is assumed that the key is unique to the device and cannot be extracted
+or used for any purpose other than the ones listed below.
+Depending on the device architecture,
+it may also be limited to a particular context or partition of the device;
+in this case it is assumed to be unique to the particular context.
+A device certification key may have any lifetime, from single use to the lifetime of the device.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">It can be used for one of two purposes:<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.4-3.1">A device certification subkey MUST NOT be used for any purpose other than signing key attestation certificates or device delegation certificates.<a href="#section-3.4-3.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.4-3.1">to sign key attestations directly<a href="#section-3.4-3.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.4-3.2">to sign further device delegation certificates.<a href="#section-3.4-3.2" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-3.4-4">Constraints:<a href="#section-3.4-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4-5.1">A device certification subkey MUST NOT be used for any purpose other than signing key attestation certificates (see section <a href="#sec-ka-kac" class="xref">Section 4.5</a>) or device delegation certificates (see section <a href="#sec-ka-ddc" class="xref">Section 4.4</a>).<a href="#section-3.4-5.1" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
 </div>
-<div id="application-key">
+<div id="sec-appkey">
 <section id="section-3.5">
         <h3 id="name-application-key-2">
 <a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-application-key-2" class="section-name selfRef">Application Key</a>
         </h3>
-<p id="section-3.5-1">An application key is a key created and managed by a device.
-Its purpose and lifetime are arbitrary.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-1">An application key is a key created and managed by a device
+(excluding the device identity key and device certification subkey described above).
+Its purpose and lifetime are arbitrary - in other words, it can be used for any purpose a user of the device wishes.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-2"><em>(MikeO: maybe I'm a noob here, but the distinction between this an a Device Certification Subkey could be stated more clearly. Maybe the distinction "This is envisioned for cases where a device needs an attested key which may be used for arbitrary purposes".)</em><a href="#section-3.5-2" class="pilcrow">¶</a></p>
+<p id="section-3.5-3"><em>(RJK: it's not really about what the device desires - these are the keys that we are trying to attest the origin of. The user has some higher-level purpose, e.g. code signing, which requires them to define a code signing key and attest to its origins in an HSM; from the point of view of this spec, their code-signing key is an application key. Keeping this comment open in the hope we can find a clear way of articulating this.)</em><a href="#section-3.5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1508,130 +1558,200 @@ Its purpose and lifetime are arbitrary.<a href="#section-3.5-1" class="pilcrow">
       <h2 id="name-key-attestations-2">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-key-attestations-2" class="section-name selfRef">Key Attestations</a>
       </h2>
-<p id="section-4-1">A key attestation consists of a nonempty sequence of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> certificates.
-There is are ordering constraints on the sequence of certificates, described below as requirements on a verifier.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">The first certificate is signed by a trust anchor key.
-A CA (or any other entity which wishes to verify the key attestation) must decide 
+<p id="section-4-1">A verifier is an entity which wishes to verify the origin of a key,
+based on its trust in a trust anchor.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">For example,
+it could be a certificate authority with an operational constraint that it only certifies hardware-protected keys.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<div id="sec-keyattestationbundle">
+<section id="section-4.1">
+        <h3 id="name-key-attestation-bundle-2">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-key-attestation-bundle-2" class="section-name selfRef">Key Attestation Bundle</a>
+        </h3>
+<p id="section-4.1-1">A key attestation consists of a nonempty sequence of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> certificates, containing key attestation extensions as described below.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">Specifically, a key attestation consists of:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1-3.1">Zero or more intermediate certificates (see section <a href="#sec-ka-intermediate" class="xref">Section 4.2</a>)<a href="#section-4.1-3.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.1-3.2">Exactly one device identity certificate (see section <a href="#sec-ka-dic" class="xref">Section 4.3</a>)<a href="#section-4.1-3.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.1-3.3">Zero or more device delegation certificates (see section <a href="#sec-ka-ddc" class="xref">Section 4.4</a>)<a href="#section-4.1-3.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.1-3.4">Exactly one key attestation certificate  (see section <a href="#sec-ka-kac" class="xref">Section 4.5</a>)<a href="#section-4.1-3.4" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.1-4">The first certificate
+(whether it is an intermediate certificate or the device identity certificate)
+is signed by a trust anchor key.
+A verifier must decide 
 through its own policies and processes which trust anchors keys to trust
 and what policies to accept in key attestations certified by them.
-A trust anchor key MUST be associated with a vendor identity.<a href="#section-4-2" class="pilcrow">¶</a></p>
-<p id="section-4-3">Constraints:<a href="#section-4-3" class="pilcrow">¶</a></p>
+A trust anchor key MUST be associated with a vendor identity.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-5">Constraints:<a href="#section-4.1-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-4.1">A verifier MUST verify that each certificate is well-formed<a href="#section-4-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.1-6.1">A verifier MUST verify that each certificate is well-formed (except that expiry and revocation information need not be present)<a href="#section-4.1-6.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-4-4.2">A verifier MUST verify that the first certificate is signed by a trust anchor key<a href="#section-4-4.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.1-6.2">A verifier MUST verify that the first certificate is signed by a trust anchor key<a href="#section-4.1-6.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-4-4.3">A verifier MUST verify that each certificate, apart from the first, is certified by the previous certificate in the key attestation.<a href="#section-4-4.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.1-6.3">A verifier MUST verify that each certificate, apart from the first, is certified by the previous certificate in the key attestation.<a href="#section-4.1-6.3" class="pilcrow">¶</a>
 </li>
-      </ul>
-<p id="section-4-5">The certificate types that may appear in a key attestation are described in the following sections.<a href="#section-4-5" class="pilcrow">¶</a></p>
-<div id="intermediate-ca-certificate">
-<section id="section-4.1">
-        <h3 id="name-intermediate-ca-certificate-2">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-intermediate-ca-certificate-2" class="section-name selfRef">Intermediate CA Certificate</a>
-        </h3>
-<p id="section-4.1-1">An intermediate CA delegation certificate certifies an intermediate CA.
-It MUST have the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> basic constraints extension with the <code>cA</code> boolean set to true.
-It MUST NOT have any of the extensions defined below.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2">Constraints:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-4.1-3.1">A verifier may detected an intermediate CA delegation by the absence of the extensions defined below.<a href="#section-4.1-3.1" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.1-3.2">There may be any number of intermediate CA certificates, including 0.<a href="#section-4.1-3.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.1-6.4">A verifier MUST verify that the ordering of certificates is as described above.<a href="#section-4.1-6.4" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
 </div>
-<div id="device-identity-certificate">
+<div id="sec-ka-intermediate">
 <section id="section-4.2">
-        <h3 id="name-device-identity-certificate-2">
-<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-device-identity-certificate-2" class="section-name selfRef">Device Identity Certificate</a>
+        <h3 id="name-intermediate-ca-certificate-2">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-intermediate-ca-certificate-2" class="section-name selfRef">Intermediate CA Certificate</a>
         </h3>
-<p id="section-4.2-1">A device identity certificate certifies a specific device,
-in the form of a binding between its identity and a public device identity key.
-It MUST have the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> basic constraints extension with the <code>cA</code> boolean set to true
-(since the device is acting as a CA).<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">A device identity certificate MUST contain a <code>DeviceInformation</code> extension,
-identified by <code>id-device-information</code>.
-This contains the vendor identity, device model and device serial.
-Together these uniquely define a particular device.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.2-3">For a hardware device, it is envisaged that a manufacturing facility will sign a device identity certificate for each device as it is manufactured,
-binding a vendor-specific representation of device identity such as a serial number to the device's unique long-term key pair.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2-4">No significance is attached to the subject field of a device identity certificate.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-1">An intermediate CA delegation certificate certifies an intermediate CA.
+Apart from the absence of any constraints on expiry time and revocation,
+it is little different from any other intermediate CA's certificate.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">It MUST have the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> basic constraints extension with the <code>cA</code> boolean set to true.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">It MAY have the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> <code>pathLenConstraint</code>,
+and there is no change to the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> interpretation this field.
+Therefore, if it is present,
+it must permit sufficiently many following certificates to account for certificates signed by the device
+i.e. device identity certificates (see section <a href="#sec-ka-dic" class="xref">Section 4.3</a>) and device delegation certificates (see section <a href="#sec-ka-ddc" class="xref">Section 4.4</a>).<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">It MUST NOT have any of the extensions defined in the following sections (<a href="#sec-ka-dic" class="xref">Section 4.3</a>, <a href="#sec-ka-ddc" class="xref">Section 4.4</a> and <a href="#sec-ka-kac" class="xref">Section 4.5</a>).
+A verifier may detect an intermediate CA delegation by the presence of a true <code>cA</code> boolean and the absence of these extensions.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
 <p id="section-4.2-5">Constraints:<a href="#section-4.2-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.2-6.1">A verifier MUST reject any key attestation that does not contain exactly one device identity certificate.<a href="#section-4.2-6.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.2-6.1">A verifier MUST honor <code>pathLenConstraint</code> if present.<a href="#section-4.2-6.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.2-6.2">A verifier MUST reject any key attestation whose device identity certificate appears before an intermediate CA delegation.<a href="#section-4.2-6.2" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.2-6.3">A verifier MUST reject any device identity certificate whose vendor identity does not match the one associated with the trust anchor used to verify the key attestation.<a href="#section-4.2-6.3" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.2-6.4">Two distinct devices from the same vendor MUST NOT have the same device identity.<a href="#section-4.2-6.4" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.2-6.5">Two distinct devices MUST NOT have the same device identity key.<a href="#section-4.2-6.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.2-6.2">There may be any number of intermediate CA certificates, including 0.<a href="#section-4.2-6.2" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
 </div>
-<div id="device-delegation-certificate">
+<div id="sec-ka-dic">
 <section id="section-4.3">
-        <h3 id="name-device-delegation-certificat">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-device-delegation-certificat" class="section-name selfRef">Device Delegation Certificate</a>
+        <h3 id="name-device-identity-certificate-2">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-device-identity-certificate-2" class="section-name selfRef">Device Identity Certificate</a>
         </h3>
-<p id="section-4.3-1">A device delegation certificate certifies that a certification subkey that belongs to a specific device.
-It MUST have the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> basic constraints extension with the <code>cA</code> boolean set to true
-(since the device is acting as a CA).<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3-2">A device delegation certificate MUST contain a <code>DeviceSubkeyInformation</code> extension,
-identified by <code>id-device-subkey-information</code>.
-This contains the vendor identity, device model, device serial and key role.
-Note that this does not uniquely define the certification subkey.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
-<p id="section-4.3-3">It is envisaged that single hardware device may have multiple certification subkeys.
-It may create new ones over time, for instance when the device is re-initialized, 
-or if the device supports multiple users it may create a distinct certification subkeys for each user.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
-<p id="section-4.3-4">No significance is attached to the subject field of a device delegation certificate.<a href="#section-4.3-4" class="pilcrow">¶</a></p>
-<p id="section-4.3-5">Constraints:<a href="#section-4.3-5" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">A device identity certificate certifies a specific device by binding its public device identity key (defined in <a href="#sec-devidkey" class="xref">Section 3.3</a>) to a vendor-specific representation of device identity such as vendor name, model, and serial number.
+For a hardware device, it is envisaged that a manufacturing facility will use its trust anchor or intermediate CA to sign a device identity certificate for each device as it is manufactured.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-2">A device identity certificate MUST contain a <code>DeviceInformation</code> extension,
+identified by <code>id-device-information</code>.
+This extension contains the vendor identity, device model and device serial.
+Together these are called the device identity and MUST uniquely define a particular device.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.3-3">
+<pre>
+id-device-information OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1567 }
+
+DeviceInformation ::= SEQUENCE {
+  vendor UTF8STring   -- manufacturer of device
+  model UTF8STring    -- device model information
+  serial UTF8STring   -- device instance information
+}
+</pre><a href="#section-4.3-3" class="pilcrow">¶</a>
+</div>
+<p id="section-4.3-4">A device identity certificate MUST have the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> basic constraints extension with the <code>cA</code> boolean set to true
+(since the device is acting as a CA).<a href="#section-4.3-4" class="pilcrow">¶</a></p>
+<p id="section-4.3-5">No significance is attached to the subject field of a device identity certificate.<a href="#section-4.3-5" class="pilcrow">¶</a></p>
+<p id="section-4.3-6">Constraints:<a href="#section-4.3-6" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.3-6.1">A verifier MUST reject any key attestation whose device identity certificate appears before the device identity certificate.<a href="#section-4.3-6.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.3-7.1">A verifier MUST reject any key attestation that does not contain exactly one device identity certificate.<a href="#section-4.3-7.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.3-6.2">A verifier MUST reject any device delegation certificate whose vendor identity does not match the one associated with the trust anchor used to verify the key attestation.<a href="#section-4.3-6.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.3-7.2">A verifier MUST reject any device identity certificate whose vendor identity as indicated in the <code>vendor</code> field does not match the one associated with the trust anchor used to verify the key attestation.<a href="#section-4.3-7.2" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.3-6.3">There may be any number of device delegation certificates, including 0.<a href="#section-4.3-6.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.3-7.3">Two distinct devices from the same vendor MUST NOT have the same device identity, i.e. they must have different values for at least one field of <code>DeviceIdentity</code>.<a href="#section-4.3-7.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.3-7.4">Two distinct devices MUST NOT have the same device identity key.<a href="#section-4.3-7.4" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.3-8">As a matter of interpretation,
+it is envisaged that the uniquess requirement on device identity keys
+(and all other keys in this specification)
+is achieved by generating keys of adequate size,
+using a cryptographically secure pseudorandom number generators,
+rather than by maintaining an industry-wide database of all device identity keys.<a href="#section-4.3-8" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-ka-ddc">
+<section id="section-4.4">
+        <h3 id="name-device-delegation-certificat">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-device-delegation-certificat" class="section-name selfRef">Device Delegation Certificate</a>
+        </h3>
+<p id="section-4.4-1">A device delegation certificate certifies that a specific certification subkey (defined in <a href="#sec-devsubkeys" class="xref">Section 3.4</a>) belongs to a specific device by binding it to a vendor-specific representation of the device and the subkey's purpose.
+It is envisaged that a single hardware device may have multiple certification subkeys each being restricted to, for example, a single partition or application context.
+The device may create new certification subkeys and therefore new device delegation certificates over time, for instance when the device is re-initialized, 
+or if the device supports dynamic creation of users or application contexts and needs to create distinct certification subkeys for each.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.4-2">A device delegation certificate MUST contain a <code>DeviceSubkeyInformation</code> extension,
+identified by <code>id-device-subkey-information</code>.
+This contains the vendor identity, device model, device serial and key purpose.
+Note that this does not uniquely define the certification subkey.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.4-3">
+<pre>
+id-device-subkey-information OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1568 }
+
+DeviceSubkeyInformation ::= SEQUENCE {
+  vendor UTF8STring   -- manufacturer of device
+  model UTF8STring    -- device model information
+  serial UTF8STring   -- device instance information
+  purpose UTF8String  -- description of subkey purpose
+}
+</pre><a href="#section-4.4-3" class="pilcrow">¶</a>
+</div>
+<p id="section-4.4-4">The meaning of the <code>purpose</code> field is entirely dependent on the device.<a href="#section-4.4-4" class="pilcrow">¶</a></p>
+<p id="section-4.4-5">It MUST have the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> basic constraints extension with the <code>cA</code> boolean set to true
+(since the device is acting as a CA).<a href="#section-4.4-5" class="pilcrow">¶</a></p>
+<p id="section-4.4-6">No significance is attached to the subject field of a device delegation certificate.<a href="#section-4.4-6" class="pilcrow">¶</a></p>
+<p id="section-4.4-7">Constraints:<a href="#section-4.4-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.4-8.1">A verifier MUST reject any device delegation certificate whose device identity as indicated in the <code>vendor</code>, <code>model</code> and <code>serial</code> fields does not match the values from the device identity certificate.<a href="#section-4.4-8.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.4-8.2">The <code>purpose</code> field may have any value.<a href="#section-4.4-8.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.4-8.3">Two device delegation certificates signed by the same key MAY have the same <code>purpose</code> field.<a href="#section-4.4-8.3" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
 </div>
-<div id="key-attestation-certificate">
-<section id="section-4.4">
+<div id="sec-ka-kac">
+<section id="section-4.5">
         <h3 id="name-key-attestation-certificate-2">
-<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-key-attestation-certificate-2" class="section-name selfRef">Key Attestation Certificate</a>
+<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-key-attestation-certificate-2" class="section-name selfRef">Key Attestation Certificate</a>
         </h3>
-<p id="section-4.4-1">A key attestation certificate certifies that an application key was created in a particular device and is managed according to a particular policy.
-If it contains the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> basic constraints extension then it MUST have the <code>cA</code> boolean set to false.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
-<p id="section-4.4-2">A key attestation certificate MUST contain a <code>ApplicationKeyInformation</code> extension
+<p id="section-4.5-1">A key attestation certificate certifies that an application key was created in a particular device and is managed according to a particular policy.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-2">A key attestation certificate MUST contain a <code>ApplicationKeyInformation</code> extension
 identified by <code>id-application-key-information</code>.
-This contains the vendor identity, device model, device serial, key use policy (see <a href="#sec-key-use-policies" class="xref">Section 5</a>) and vendor-specific information.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
-<p id="section-4.4-3">No significance is attached to the subject field of a key attestation certificate.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
-<p id="section-4.4-4">Constraints:<a href="#section-4.4-4" class="pilcrow">¶</a></p>
+This contains the vendor identity, device model, device serial, key use policy (see <a href="#sec-key-use-policies" class="xref">Section 5</a>) and vendor-specific information.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.5-3">
+<pre>
+id-policy-signature-only OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1570 }
+
+ApplicationKeyInformation ::= SEQUENCE {
+  vendor UTF8STring         -- manufacturer of device
+  model UTF8STring          -- device model information
+  policy OBJECT IDENTIFIER  -- policy governing key use
+  vendorinfo OCTET STRING   -- vendor-specific information
+}
+</pre><a href="#section-4.5-3" class="pilcrow">¶</a>
+</div>
+<p id="section-4.5-4"><em>MikeO: I don't fully grok how the <code>policy</code> will be used. Should it be a list (SEQUENCE of OBJECT IDENTIFIER)? Can it be empty?</em><a href="#section-4.5-4" class="pilcrow">¶</a></p>
+<p id="section-4.5-5">If the key attestation certificate contains the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> basic constraints extension then it MUST have the <code>cA</code> boolean set to false.<a href="#section-4.5-5" class="pilcrow">¶</a></p>
+<p id="section-4.5-6">No significance is attached to the subject field of a key attestation certificate.<a href="#section-4.5-6" class="pilcrow">¶</a></p>
+<p id="section-4.5-7">Constraints:<a href="#section-4.5-7" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.4-5.1">A verifier MUST reject any key attestation that does not contain exactly one key attestation certificate.<a href="#section-4.4-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.5-8.1">A verifier MUST reject any key attestation certificate whose device identity as indicated in the <code>vendor</code>, <code>model</code> and <code>serial</code> fields does not match the values from the device identity certificate.<a href="#section-4.5-8.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.4-5.2">A verifier MUST reject any key attestation whose key attestation certificate appears before any other kind of certificate.<a href="#section-4.4-5.2" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.4-5.3">A verifier MUST reject any key attestation certificate whose vendor identity does not match the one associated with the trust anchor used to verify the key attestation.<a href="#section-4.4-5.3" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.4-5.4">A verifier MUST reject any key attestation certificate whose policy is not in their list of acceptable policies.<a href="#section-4.4-5.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.5-8.2">A verifier MUST reject any key attestation certificate whose policy is not in their list of acceptable policies.<a href="#section-4.5-8.2" class="pilcrow">¶</a>
 </li>
         </ul>
 <div id="vendor-specific-information">
-<section id="section-4.4.1">
+<section id="section-4.5.1">
           <h4 id="name-vendor-specific-information-2">
-<a href="#section-4.4.1" class="section-number selfRef">4.4.1. </a><a href="#name-vendor-specific-information-2" class="section-name selfRef">Vendor-Specific Information</a>
+<a href="#section-4.5.1" class="section-number selfRef">4.5.1. </a><a href="#name-vendor-specific-information-2" class="section-name selfRef">Vendor-Specific Information</a>
           </h4>
-<p id="section-4.4.1-1">This field of the key attestation certificate may contain any octet string (including the empty string).
+<p id="section-4.5.1-1">The <code>ApplicationKeyInformation.vendorInfo</code> field of the key attestation certificate MAY contain any octet string (including the empty string).
 The interpretation is up to the vendor.
 For example,
 it may be used to convey information about how the key was generated
-or a vendor-specific description of the policies that govern its use.<a href="#section-4.4.1-1" class="pilcrow">¶</a></p>
+or a vendor-specific description of the policies that govern its use.<a href="#section-4.5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1643,10 +1763,20 @@ or a vendor-specific description of the policies that govern its use.<a href="#s
       <h2 id="name-key-use-policies-2">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-key-use-policies-2" class="section-name selfRef">Key Use Policies</a>
       </h2>
-<p id="section-5-1">Key attestation certificates contain object identifiers describing the policies that the device will enforce upon use of the application key.
+<p id="section-5-1">Key attestation certificates contain object identifiers describing the policies that the device will enforce upon use of the private half of the application key.
 For example <code>id-policy-signature-only</code> indicates that the key may only be used to make signatures
 (and not to decrypt, as would be possible for an RSA key).<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">Note that these are unrelated to the certificate policy OIDs defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> section 4.2.1.4.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-2"><em>(MikeO: nitpick I would say "describing policies surrounding the use of the application key." I'm just thinking that, for example, the device can't control whether some dumb client decides to encrypt for your RSA sig-only key, so in that case the policy OID is as much for the client as for the device itself. Also has "application key" been defined in this document, or should we use one of the existing terms?)</em>.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">*RJK: I've clarified that it's for the private half of the application key, so we're not claiming we can control encrypt/verify. Leaving this open for now to check that's what you mneant.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">*(MikeO: I wonder if we could just borrow and tweak wording from RFC 5280's Policy OIDs section:
+   In a key attestation certificate, policy object identifiers indicate
+   the policy under which the certificate has been issued and the
+   purposes for which the certificate may be used.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-5">... these are placed within the <code>ApplicationKeyInformation</code> extension of the key attestation certificate, and not it its `certificatePolicies extension (cite 5280 4.2.1.4) because ...
+)*<a href="#section-5-5" class="pilcrow">¶</a></p>
+<p id="section-5-6">Note that these are OIDs describing policies within the key attestation ecosystem and are unrelated to the certificate policy OIDs defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> section 4.2.1.4.<a href="#section-5-6" class="pilcrow">¶</a></p>
+<p id="section-5-7"><em>(MikeO: it seems weird to say "These are unrelated to X.509 policy OIDs", and then give the example <code>id-policy-signature-only</code> which, at first glance, looks like it's basically an X.509 KeyUsage.)</em><a href="#section-5-7" class="pilcrow">¶</a></p>
+<p id="section-5-8">*RJK: I see where you're coming from - I'll have a look at what we can do with KeyUsage, and come back to the other stuff about key policies if nothing else changes.<a href="#section-5-8" class="pilcrow">¶</a></p>
 <div id="key-use-policy-variants">
 <section id="section-5.1">
         <h3 id="name-key-use-policy-variants-2">
@@ -1662,11 +1792,12 @@ but that an authorized administrator may override this in some way
 (for example, in order to facilitate disaster recovery).<a href="#section-5.1-2.2" class="pilcrow">¶</a>
 </li>
         </ol>
-<p id="section-5.1-3">For a CA, normally only the first variant (no administrative override) would be acceptable.
+<p id="section-5.1-3">For example, for a CA processing a key attestation bundle in a certificate request, normally only the first variant (no administrative override) would be acceptable.
 If the application key is lost then the application key owner can be expected
 to generate a new key and certify it.
 There is no need to recover the old key.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">In other use cases, the weaker policy may be more appropriate.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">*(MikeO: I'm not sure I see the connection between the last two sentences and the first one above. Maybe need to make the connection clearer between losing your key, and key use policies, like mention above that non-exportability is one of the important policies?)<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">In other use cases, the weaker policy may be more appropriate.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-only-policy">
@@ -1675,7 +1806,8 @@ There is no need to recover the old key.<a href="#section-5.1-3" class="pilcrow"
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-signature-only-policy-2" class="section-name selfRef">Signature-Only Policy</a>
         </h3>
 <p id="section-5.2-1">This policy is identified by <code>id-policy-signature-only</code>.
-It means that the private key may only be used for signature, and may not be exported in plaintext outside the device.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+It means that the private key may only be used for signature, and MAY NOT be exported in plaintext outside the device.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2"><em>(MikeO: for clarity, maybe name this <code>id-keyattest-policy-sig-non-exportable</code> or something like that?)</em><a href="#section-5.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-only-policy-with-administrator-override">
@@ -1684,7 +1816,7 @@ It means that the private key may only be used for signature, and may not be exp
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-signature-only-policy-with-a" class="section-name selfRef">Signature-Only Policy with Administrator Override</a>
         </h3>
 <p id="section-5.3-1">This policy is identified by <code>TODO</code>.
-It means that the private key may normally only be used for signature,
+It means that the private key may normally only be used for signature <em>(MikeO: and MAY NOT be exported?)</em>,
 but that an authorized administrator may override this in some way.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1699,6 +1831,8 @@ or to cover device-specific functionality.
 For example they may describe a policy in terms of their device's proprietary policy or access control syntax#
 and publish an OID reflecting that policy.
 A verifier MUST NOT accept such a vendor-defined policy unless they fully understand the intended meaning.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2"><em>(MikeO: This description reinforces a question I asked above about whether this should allow a list of policies?)</em><a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">*RJK: Probably yes, then we don't have to have a sign-and-decrypt policy.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1719,6 +1853,22 @@ This may be done via the <code>AttestationBundle</code> extension, identified by
         <li class="normal" id="section-6-3.3">A CA MUST verify that the subject public key in the certification request is the same as the subject public key in the key attestation certificate.<a href="#section-6-3.3" class="pilcrow">¶</a>
 </li>
       </ul>
+<p id="section-6-4">*RJK TODO tidy up all this section<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-5">(MikeO: 
+We'll need to be explicit about how to bundle this into a <span>[<a href="#RFC2986" class="xref">RFC2986</a>]</span> Attribute. Do we need an OID for the <code>type</code>? I assume the <code>values</code> is straight-forward: it'll be a single item, which is the OCTET STRING of the <code>AttestationBundle</code>?<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-6">Attribute { ATTRIBUTE:IOSet } ::= SEQUENCE {
+        type   ATTRIBUTE.&amp;id({IOSet}),
+        values SET SIZE(1..MAX) OF ATTRIBUTE.&amp;Type({IOSet}{@type})
+   }<a href="#section-6-6" class="pilcrow">¶</a></p>
+<p id="section-6-7">)<a href="#section-6-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6-8">
+<pre>
+id-attestation-bundle OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1571 }
+
+AttestationBundle ::= SEQUENCE OF Certificate
+</pre><a href="#section-6-8" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 <div id="sec-imp-considers">
@@ -1734,8 +1884,28 @@ This may be done via the <code>AttestationBundle</code> extension, identified by
       <h2 id="name-iana-considerations-2">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations-2" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-8-1">... TODO document any codepoints or OIDs that we need IANA to register ...<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">we do have some new OIDs. I've used free ones, they can be replaced with something else of course.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-1">The following Object Identifiers are to be assigned by IANA:<a href="#section-8-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-8-2">
+<pre>
+id-device-information OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1567 }
+
+
+id-device-subkey-information OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1568 }
+
+id-application-key-information OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1569 }
+
+id-attestation-bundle OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1571 }
+
+id-policy-signature-only OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1570 }
+</pre><a href="#section-8-2" class="pilcrow">¶</a>
+</div>
+<p id="section-8-3"><em>(MikeO: apparently 54392 is "Waterjuice", regisered by Justin Waters. Is that an Entrust employee? Basically, do we have the right to squat on that OID ark? We could offer the Entrust arc 2.16.840.1.114027 for prototyping, if that's better?)</em><a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-4">*RJK: the OIDs are assigned by a free OID assignment service. If I can have something under Entrust then I'll replace them with that.<a href="#section-8-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1743,7 +1913,6 @@ This may be done via the <code>AttestationBundle</code> extension, identified by
       <h2 id="name-security-considerations-2">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations-2" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-9-1">... TODO document any additional (security) GOTCHAs ...<a href="#section-9-1" class="pilcrow">¶</a></p>
 <div id="key-use-constraints">
 <section id="section-9.1">
         <h3 id="name-key-use-constraints-2">
@@ -1800,38 +1969,69 @@ allowing anyone to sign with it.
 In other words, verifiers should not place undue weight on the distinction between the two classes of policy.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="uniqueness-of-keys">
+<section id="section-9.4">
+        <h3 id="name-uniqueness-of-keys-2">
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-uniqueness-of-keys-2" class="section-name selfRef">Uniqueness of Keys</a>
+        </h3>
+<p id="section-9.4-1">It's generally assumed that all keys are unique.
+This is the expected outcome for properly generated cryptographic keys,
+and while a collision is in principle possible by chance,
+it's much more likely that a collision indicates a failure in the key generation process (for example, <span>[<a href="#DSA1571" class="xref">DSA1571</a>]</span>).<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <section id="section-10">
-      <h2 id="name-normative-references-2">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
+      <h2 id="name-references-2">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references-2" class="section-name selfRef">References</a>
       </h2>
+<section id="section-10.1">
+        <h3 id="name-normative-references-2">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2986">[RFC2986]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Nystrom, M.</span> and <span class="refAuthor">B. Kaliski</span>, <span class="refTitle">"PKCS #10: Certification Request Syntax Specification Version 1.7"</span>, <span class="seriesInfo">RFC 2986</span>, <span class="seriesInfo">DOI 10.17487/RFC2986</span>, <time datetime="2000-11" class="refDate">November 2000</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2986">https://www.rfc-editor.org/info/rfc2986</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5280">[RFC5280]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5280">https://www.rfc-editor.org/info/rfc5280</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC5914">[RFC5914]</dt>
+        <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Ashmore, S.</span>, and <span class="refAuthor">C. Wallace</span>, <span class="refTitle">"Trust Anchor Format"</span>, <span class="seriesInfo">RFC 5914</span>, <span class="seriesInfo">DOI 10.17487/RFC5914</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5914">https://www.rfc-editor.org/info/rfc5914</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8411">[RFC8411]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Schaad, J.</span> and <span class="refAuthor">R. Andrews</span>, <span class="refTitle">"IANA Registration for the Cryptographic Algorithm Object Identifier Range"</span>, <span class="seriesInfo">RFC 8411</span>, <span class="seriesInfo">DOI 10.17487/RFC8411</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8411">https://www.rfc-editor.org/info/rfc8411</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="X.690">[X.690]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">ITU-T</span>, <span class="refTitle">"Information technology - ASN.1 encoding Rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)"</span>, <span class="seriesInfo">ISO/IEC 8825-1:2015</span>, <time datetime="2015-11" class="refDate">November 2015</time>. </dd>
 <dd class="break"></dd>
 </dl>
+</section>
+<section id="section-10.2">
+        <h3 id="name-informative-references-2">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references-2" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="DSA1571">[DSA1571]</dt>
+      <dd>
+<span class="refAuthor">Debian Project</span>, <span class="refTitle">"DSA-1571-1 openssl - predictable random number generator"</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.debian.org/security/2008/dsa-1571">https://www.debian.org/security/2008/dsa-1571</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
 </section>
 <div id="appdx-samples">
 <section id="appendix-A">
@@ -1842,7 +2042,7 @@ In other words, verifiers should not place undue weight on the distinction betwe
 I've got a script I've used in other I-Ds to inline include files, if that's useful here.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="asn1-module">
+<div id="appx-asn1-module">
 <section id="appendix-B">
       <h2 id="name-asn1-module-2">
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-asn1-module-2" class="section-name selfRef">ASN.1 Module</a>
@@ -1869,13 +2069,11 @@ DeviceSubkeyInformation ::= SEQUENCE {
   vendor UTF8STring   -- manufacturer of device
   model UTF8STring    -- device model information
   serial UTF8STring   -- device instance information
-  role UTF8String     -- description of subkey role
+  purpose UTF8String     -- description of subkey purpose
 }
 
 id-application-key-information OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1569 }
-id-policy-signature-only OBJECT IDENTIFIER ::=
-        { 1 3 6 1 4 1 54392 5 1570 }
 
 ApplicationKeyInformation ::= SEQUENCE {
   vendor UTF8STring         -- manufacturer of device
@@ -1888,6 +2086,10 @@ id-attestation-bundle OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1571 }
 
 AttestationBundle ::= SEQUENCE OF Certificate
+
+
+id-policy-signature-only OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1570 }
 
 </pre><a href="#appendix-B-2" class="pilcrow">¶</a>
 </div>

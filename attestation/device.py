@@ -37,11 +37,11 @@ class Device(CA):
 
 class DeviceSubkey(CA):
     """Representation of a subsiduary key in a hardware device"""
-    def __init__(self, device, role, serial):
-        assert role != "device" # clash with Device class
-        super().__init__(serial, f"/O={device.vendor}/CN={serial}", caroot=f"{rootdir}/devices/{device.serial}/{role}")
+    def __init__(self, device, purpose, serial):
+        assert purpose != "device" # clash with Device class
+        super().__init__(serial, f"/O={device.vendor}/CN={serial}", caroot=f"{rootdir}/devices/{device.serial}/{purpose}")
         self.device = device
-        self.role = role
+        self.purpose = purpose
         self.serial = serial
 
     def subkeyinfo(self):
@@ -49,7 +49,7 @@ class DeviceSubkey(CA):
         dsi = DeviceSubkeyInformation()
         dsi['vendor'] = self.device.vendor
         dsi['model'] = self.device.model
-        dsi['role'] = self.role
+        dsi['purpose'] = self.purpose
         dsi['serial'] = self.device.serial
         return encode(dsi)
 

@@ -24,7 +24,7 @@ class DeviceSubkeyInformation(univ.Sequence):
         namedtype.NamedType('vendor',  char.UTF8String()),
         namedtype.NamedType('model', char.UTF8String()),
         namedtype.NamedType('serial', char.UTF8String()),
-        namedtype.NamedType('role',  char.UTF8String()),
+        namedtype.NamedType('purpose',  char.UTF8String()),
     )
 
 class ApplicationKeyInformation(univ.Sequence):

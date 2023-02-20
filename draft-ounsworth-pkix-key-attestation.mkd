@@ -48,10 +48,9 @@ author:
       email: richard.kettlewell@entrust.com
 
 normative:
-  RFC2119:
   RFC2986:
   RFC5280:
-  RFC8174:
+  RFC5914:
   RFC8411:
   #<!-- I'm leaving the ref to X.690 in because I suspect we're gonna need it -->
   X.690:
@@ -62,17 +61,22 @@ normative:
       seriesinfo:
         ISO/IEC: 8825-1:2015
 
-
 # <!-- EDNOTE: full syntax for this defined here: https://github.com/cabo/kramdown-rfc2629 -->
 
 informative:
+  DSA1571:
+    title: DSA-1571-1 openssl - predictable random number generator
+    target: https://www.debian.org/security/2008/dsa-1571
+    date: May 2008
+    author:
+      org: Debian Project
 
 
 --- abstract
 
 This document describes syntax for conveying key origin attestation information to a Certification Authority (CA) or other entity,
 so that they may decide how much trust to place in the management private of the key,
-for example to support a decision about whether to issue a certificate.
+for example to support a decision about whether to issue a certificate. In contrast to other key attestation formats, the one defined in this document requires only ASN.1 and the standard PKIX modules.
 
 <!-- End of Abstract -->
 
@@ -83,10 +87,9 @@ for example to support a decision about whether to issue a certificate.
 Key attestion refers to the originator of a cryptographic key pair providing information about the provenance of that key pair,
 in a manner that can be cryptographically verified.
 The information provided may include, for example, the model and identity of the device that created the key pair
-and any policies that may be enforced upon the use of the private key.
+and any policies that may be enforced upon the use of the private key, contained in a cryptographic envelope that can be chained to a manufacturing public key of the device vendor.
 
-This information can be used by a Certification Authority to decide whether to issue a certificate,
-or by other entities for their own purposes.
+This information can be used by a Certification Authority (CA) to decide whether to issue a certificate, to apply a given policy or certificate template, or by other entities for their own purposes. The CA may choose to publish some or all of the key attestation data in the certificate for the use of parties that will rely on this certificate.
 
 Many devices, including Hardware Security Modules, provide attestation information of some form in proprietary formats.
 A common syntax for key attestations is required to reduce the implementation burden on CA implementors and operators.
@@ -101,170 +104,286 @@ Furthermore it is desirable that the syntax is sympathetic to existing CA implem
 
 This section describes the cryptographic keys referenced in this document.
 
-## Trust Anchor Key
+## Trust Anchor Key {#sec-trust-anchor}
 
 A trust anchor key is a signing key held by a vendor.
-It is used either to sign devices directly or to sign intermediate CA keys.
-It may  be used to sign intermediate CAs or it may be used to sign devices directly.
+For the purposes of this document, a trust anchor may be a proper Trust Anchor as defined in [RFC5914], or a root certification authority as defined in [RFC5280].
+It is used either to directly sign device identity keys as defined in {{sec-devidkey}} or to sign intermediate CA keys.
+A trust anchor key MUST be associated with a vendor identity.
 
 Constraints:
 
-- A trust anchor key MUST NOT be used for any purpose other than signing intermediate CA keys or devices.
+- A trust anchor key MUST only be used for purposes consistent with signing intermediate CA keys or devices (i.e. signing delegation certificates, CRLs, etc).
 
-## Intermediate CA Key
+## Intermediate CA Key {#sec-intca}
 
 An intermediate CA key is a signing key held by a vendor and certified by that vendor's trust anchor.
-It is used either to sign devices directly or to sign further intermediate CA keys.
-Like a trust anchor key, it may only used to sign intermediate CAs or it may be used to sign devices directly.
+
+It can be used for one of two purposes:
+
+- to certify device identity keys (see section {{sec-devidkey}}) by signing device identity certificates (see section {{sec-ka-dic}})
+- to certify further intermediate CA keys
 
 The exact configuration and management of trust anchor keys and intermediate CA keys is beyond the scope of this document.
 An example configuration is that a vendor have an offline trust anchor,
 and an intermediate CA in each of its manufacturing sites,
 certified by the trust anchor key when a manufacturing site is created or during maintenance or recovery activities.
 
+It may be impossible recertify a device after manufacture,
+and it may be impossible for a manufacturer to know when a device has been retired from use.
+Therefore:
+
+- an intermediate CA need not track and public revocation information
+- intermediate CA keys MAY have a expiration date of 99991231235959Z ([RFC5280] section 4.1.2.5).
+
 Constraints:
 
-- An intermediate CA key MUST NOT be used for any purpose other than signing intermediate CA keys or devices.
+- An intermediate CA key MUST only be used for purposes consistent with certifying intermediate CA keys (i.e. signing delegation certificates, CRLs, etc) or devices.
 
-## Device Identity Key
+## Device Identity Key {#sec-devidkey}
 
 A device identity key is a signing key held by a device.
-It is used either to sign key attestations directly or to certify device certification subkeys.
+It is assumed that the key is unique to the device and cannot be extracted
+or used for any purpose other than the ones listed below.
 It is envisaged that this key will persist for the lifetime of the device.
+
+It can be used for one of two purposes:
+
+- to sign key attestations directly
+- to sign device delegation certificates (see section {{sec-ka-ddc}}), which are used to certify device certification subkeys (see section {{sec-devsubkeys}}).
 
 Constraints:
 
 - A device identity key MUST NOT be used for any purpose other than signing key attestation certificates or device delegation certificates.
 
-## Device Certification Subkey
+## Device Certification Subkey {#sec-devsubkeys}
 
 A device certification key is a signing key held by a device.
-It is used either to sign key attestations directly or to certify further device certification subkeys.
-Device certification keys may have any lifetime, from single use to the lifetime of the device.
+It is assumed that the key is unique to the device and cannot be extracted
+or used for any purpose other than the ones listed below.
+Depending on the device architecture,
+it may also be limited to a particular context or partition of the device;
+in this case it is assumed to be unique to the particular context.
+A device certification key may have any lifetime, from single use to the lifetime of the device.
+
+It can be used for one of two purposes:
+
+- to sign key attestations directly
+- to sign further device delegation certificates.
 
 Constraints:
 
-- A device certification subkey MUST NOT be used for any purpose other than signing key attestation certificates or device delegation certificates.
+- A device certification subkey MUST NOT be used for any purpose other than signing key attestation certificates (see section {{sec-ka-kac}}) or device delegation certificates (see section {{sec-ka-ddc}}).
 
-## Application Key
+## Application Key {#sec-appkey}
 
 
-An application key is a key created and managed by a device.
-Its purpose and lifetime are arbitrary.
+An application key is a key created and managed by a device
+(excluding the device identity key and device certification subkey described above).
+Its purpose and lifetime are arbitrary - in other words, it can be used for any purpose a user of the device wishes.
+
+*(MikeO: maybe I'm a noob here, but the distinction between this an a Device Certification Subkey could be stated more clearly. Maybe the distinction "This is envisioned for cases where a device needs an attested key which may be used for arbitrary purposes".)*
+
+*(RJK: it's not really about what the device desires - these are the keys that we are trying to attest the origin of. The user has some higher-level purpose, e.g. code signing, which requires them to define a code signing key and attest to its origins in an HSM; from the point of view of this spec, their code-signing key is an application key. Keeping this comment open in the hope we can find a clear way of articulating this.)*
 
 # Key Attestations
 
-A key attestation consists of a nonempty sequence of [RFC5280] certificates.
-There is are ordering constraints on the sequence of certificates, described below as requirements on a verifier.
+A verifier is an entity which wishes to verify the origin of a key,
+based on its trust in a trust anchor.
 
+For example,
+it could be a certificate authority with an operational constraint that it only certifies hardware-protected keys.
 
-The first certificate is signed by a trust anchor key.
-A CA (or any other entity which wishes to verify the key attestation) must decide 
+## Key Attestation Bundle {#sec-keyattestationbundle}
+
+A key attestation consists of a nonempty sequence of [RFC5280] certificates, containing key attestation extensions as described below.
+
+Specifically, a key attestation consists of:
+
+* Zero or more intermediate certificates (see section {{sec-ka-intermediate}})
+* Exactly one device identity certificate (see section {{sec-ka-dic}})
+* Zero or more device delegation certificates (see section {{sec-ka-ddc}})
+* Exactly one key attestation certificate  (see section {{sec-ka-kac}})
+
+The first certificate
+(whether it is an intermediate certificate or the device identity certificate)
+is signed by a trust anchor key.
+A verifier must decide 
 through its own policies and processes which trust anchors keys to trust
 and what policies to accept in key attestations certified by them.
 A trust anchor key MUST be associated with a vendor identity.
 
 Constraints:
 
-- A verifier MUST verify that each certificate is well-formed
+- A verifier MUST verify that each certificate is well-formed (except that expiry and revocation information need not be present)
 - A verifier MUST verify that the first certificate is signed by a trust anchor key
 - A verifier MUST verify that each certificate, apart from the first, is certified by the previous certificate in the key attestation.
+- A verifier MUST verify that the ordering of certificates is as described above.
 
-The certificate types that may appear in a key attestation are described in the following sections.
-
-## Intermediate CA Certificate
-
+## Intermediate CA Certificate {#sec-ka-intermediate}
 
 An intermediate CA delegation certificate certifies an intermediate CA.
+Apart from the absence of any constraints on expiry time and revocation,
+it is little different from any other intermediate CA's certificate.
+
 It MUST have the [RFC5280] basic constraints extension with the `cA` boolean set to true.
-It MUST NOT have any of the extensions defined below.
+
+It MAY have the [RFC5280] `pathLenConstraint`,
+and there is no change to the [RFC5280] interpretation this field.
+Therefore, if it is present,
+it must permit sufficiently many following certificates to account for certificates signed by the device
+i.e. device identity certificates (see section {{sec-ka-dic}}) and device delegation certificates (see section {{sec-ka-ddc}}).
+
+It MUST NOT have any of the extensions defined in the following sections ({{sec-ka-dic}}, {{sec-ka-ddc}} and {{sec-ka-kac}}).
+A verifier may detect an intermediate CA delegation by the presence of a true `cA` boolean and the absence of these extensions.
+
 
 Constraints:
 
-- A verifier may detected an intermediate CA delegation by the absence of the extensions defined below.
+- A verifier MUST honor `pathLenConstraint` if present. 
 - There may be any number of intermediate CA certificates, including 0.
 
-## Device Identity Certificate
+## Device Identity Certificate  {#sec-ka-dic}
 
-A device identity certificate certifies a specific device,
-in the form of a binding between its identity and a public device identity key.
-It MUST have the [RFC5280] basic constraints extension with the `cA` boolean set to true
-(since the device is acting as a CA).
+A device identity certificate certifies a specific device by binding its public device identity key (defined in {{sec-devidkey}}) to a vendor-specific representation of device identity such as vendor name, model, and serial number.
+For a hardware device, it is envisaged that a manufacturing facility will use its trust anchor or intermediate CA to sign a device identity certificate for each device as it is manufactured.
 
 A device identity certificate MUST contain a `DeviceInformation` extension,
 identified by `id-device-information`.
-This contains the vendor identity, device model and device serial.
-Together these uniquely define a particular device.
+This extension contains the vendor identity, device model and device serial.
+Together these are called the device identity and MUST uniquely define a particular device.
 
-For a hardware device, it is envisaged that a manufacturing facility will sign a device identity certificate for each device as it is manufactured,
-binding a vendor-specific representation of device identity such as a serial number to the device's unique long-term key pair.
+~~~
+id-device-information OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1567 }
+
+DeviceInformation ::= SEQUENCE {
+  vendor UTF8STring   -- manufacturer of device
+  model UTF8STring    -- device model information
+  serial UTF8STring   -- device instance information
+}
+~~~
+
+A device identity certificate MUST have the [RFC5280] basic constraints extension with the `cA` boolean set to true
+(since the device is acting as a CA).
 
 No significance is attached to the subject field of a device identity certificate.
 
 Constraints:
 
 - A verifier MUST reject any key attestation that does not contain exactly one device identity certificate.
-- A verifier MUST reject any key attestation whose device identity certificate appears before an intermediate CA delegation.
-- A verifier MUST reject any device identity certificate whose vendor identity does not match the one associated with the trust anchor used to verify the key attestation.
-- Two distinct devices from the same vendor MUST NOT have the same device identity.
+- A verifier MUST reject any device identity certificate whose vendor identity as indicated in the `vendor` field does not match the one associated with the trust anchor used to verify the key attestation.
+- Two distinct devices from the same vendor MUST NOT have the same device identity, i.e. they must have different values for at least one field of `DeviceIdentity`.
 - Two distinct devices MUST NOT have the same device identity key.
 
-## Device Delegation Certificate
+As a matter of interpretation,
+it is envisaged that the uniquess requirement on device identity keys
+(and all other keys in this specification)
+is achieved by generating keys of adequate size,
+using a cryptographically secure pseudorandom number generators,
+rather than by maintaining an industry-wide database of all device identity keys.
 
-A device delegation certificate certifies that a certification subkey that belongs to a specific device.
-It MUST have the [RFC5280] basic constraints extension with the `cA` boolean set to true
-(since the device is acting as a CA).
+## Device Delegation Certificate  {#sec-ka-ddc}
+
+A device delegation certificate certifies that a specific certification subkey (defined in {{sec-devsubkeys}}) belongs to a specific device by binding it to a vendor-specific representation of the device and the subkey's purpose.
+It is envisaged that a single hardware device may have multiple certification subkeys each being restricted to, for example, a single partition or application context.
+The device may create new certification subkeys and therefore new device delegation certificates over time, for instance when the device is re-initialized, 
+or if the device supports dynamic creation of users or application contexts and needs to create distinct certification subkeys for each.
+
 
 A device delegation certificate MUST contain a `DeviceSubkeyInformation` extension,
 identified by `id-device-subkey-information`.
-This contains the vendor identity, device model, device serial and key role.
+This contains the vendor identity, device model, device serial and key purpose.
 Note that this does not uniquely define the certification subkey.
 
-It is envisaged that single hardware device may have multiple certification subkeys.
-It may create new ones over time, for instance when the device is re-initialized, 
-or if the device supports multiple users it may create a distinct certification subkeys for each user.
+~~~
+id-device-subkey-information OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1568 }
+
+DeviceSubkeyInformation ::= SEQUENCE {
+  vendor UTF8STring   -- manufacturer of device
+  model UTF8STring    -- device model information
+  serial UTF8STring   -- device instance information
+  purpose UTF8String  -- description of subkey purpose
+}
+~~~
+
+The meaning of the `purpose` field is entirely dependent on the device.
+
+It MUST have the [RFC5280] basic constraints extension with the `cA` boolean set to true
+(since the device is acting as a CA).
 
 No significance is attached to the subject field of a device delegation certificate.
 
 Constraints:
 
-- A verifier MUST reject any key attestation whose device identity certificate appears before the device identity certificate.
-- A verifier MUST reject any device delegation certificate whose vendor identity does not match the one associated with the trust anchor used to verify the key attestation.
-- There may be any number of device delegation certificates, including 0.
+- A verifier MUST reject any device delegation certificate whose device identity as indicated in the `vendor`, `model` and `serial` fields does not match the values from the device identity certificate.
+- The `purpose` field may have any value.
+- Two device delegation certificates signed by the same key MAY have the same `purpose` field.
 
-## Key Attestation Certificate
+## Key Attestation Certificate {#sec-ka-kac}
 
 A key attestation certificate certifies that an application key was created in a particular device and is managed according to a particular policy.
-If it contains the [RFC5280] basic constraints extension then it MUST have the `cA` boolean set to false.
 
 A key attestation certificate MUST contain a `ApplicationKeyInformation` extension
 identified by `id-application-key-information`.
 This contains the vendor identity, device model, device serial, key use policy (see {{sec-key-use-policies}}) and vendor-specific information.
 
+~~~
+id-policy-signature-only OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1570 }
+
+ApplicationKeyInformation ::= SEQUENCE {
+  vendor UTF8STring         -- manufacturer of device
+  model UTF8STring          -- device model information
+  policy OBJECT IDENTIFIER  -- policy governing key use
+  vendorinfo OCTET STRING   -- vendor-specific information
+}
+~~~
+
+*MikeO: I don't fully grok how the `policy` will be used. Should it be a list (SEQUENCE of OBJECT IDENTIFIER)? Can it be empty?*
+
+If the key attestation certificate contains the [RFC5280] basic constraints extension then it MUST have the `cA` boolean set to false.
+
 No significance is attached to the subject field of a key attestation certificate.
 
 Constraints:
 
-- A verifier MUST reject any key attestation that does not contain exactly one key attestation certificate.
-- A verifier MUST reject any key attestation whose key attestation certificate appears before any other kind of certificate.
-- A verifier MUST reject any key attestation certificate whose vendor identity does not match the one associated with the trust anchor used to verify the key attestation.
+- A verifier MUST reject any key attestation certificate whose device identity as indicated in the `vendor`, `model` and `serial` fields does not match the values from the device identity certificate.
 - A verifier MUST reject any key attestation certificate whose policy is not in their list of acceptable policies.
 
 ### Vendor-Specific Information
 
-This field of the key attestation certificate may contain any octet string (including the empty string).
+The `ApplicationKeyInformation.vendorInfo` field of the key attestation certificate MAY contain any octet string (including the empty string).
 The interpretation is up to the vendor.
 For example,
 it may be used to convey information about how the key was generated
 or a vendor-specific description of the policies that govern its use.
 
+
 # Key Use Policies {#sec-key-use-policies}
 
-Key attestation certificates contain object identifiers describing the policies that the device will enforce upon use of the application key.
+Key attestation certificates contain object identifiers describing the policies that the device will enforce upon use of the private half of the application key.
 For example `id-policy-signature-only` indicates that the key may only be used to make signatures
 (and not to decrypt, as would be possible for an RSA key).
 
-Note that these are unrelated to the certificate policy OIDs defined in [RFC5280] section 4.2.1.4.
+*(MikeO: nitpick I would say "describing policies surrounding the use of the application key." I'm just thinking that, for example, the device can't control whether some dumb client decides to encrypt for your RSA sig-only key, so in that case the policy OID is as much for the client as for the device itself. Also has "application key" been defined in this document, or should we use one of the existing terms?)*.
+
+*RJK: I've clarified that it's for the private half of the application key, so we're not claiming we can control encrypt/verify. Leaving this open for now to check that's what you mneant.
+
+*(MikeO: I wonder if we could just borrow and tweak wording from RFC 5280's Policy OIDs section:
+   In a key attestation certificate, policy object identifiers indicate
+   the policy under which the certificate has been issued and the
+   purposes for which the certificate may be used. 
+
+   ... these are placed within the `ApplicationKeyInformation` extension of the key attestation certificate, and not it its `certificatePolicies extension (cite 5280 4.2.1.4) because ...
+)*
+
+Note that these are OIDs describing policies within the key attestation ecosystem and are unrelated to the certificate policy OIDs defined in [RFC5280] section 4.2.1.4.
+
+*(MikeO: it seems weird to say "These are unrelated to X.509 policy OIDs", and then give the example `id-policy-signature-only` which, at first glance, looks like it's basically an X.509 KeyUsage.)*
+
+*RJK: I see where you're coming from - I'll have a look at what we can do with KeyUsage, and come back to the other stuff about key policies if nothing else changes.
 
 ## Key Use Policy Variants
 
@@ -277,22 +396,26 @@ and this cannot be overidden even by an administrator.
 but that an authorized administrator may override this in some way
 (for example, in order to facilitate disaster recovery).
 
-For a CA, normally only the first variant (no administrative override) would be acceptable.
+For example, for a CA processing a key attestation bundle in a certificate request, normally only the first variant (no administrative override) would be acceptable.
 If the application key is lost then the application key owner can be expected
 to generate a new key and certify it.
 There is no need to recover the old key.
+
+*(MikeO: I'm not sure I see the connection between the last two sentences and the first one above. Maybe need to make the connection clearer between losing your key, and key use policies, like mention above that non-exportability is one of the important policies?)
 
 In other use cases, the weaker policy may be more appropriate.
 
 ## Signature-Only Policy
 
 This policy is identified by `id-policy-signature-only`.
-It means that the private key may only be used for signature, and may not be exported in plaintext outside the device.
+It means that the private key may only be used for signature, and MAY NOT be exported in plaintext outside the device.
+
+*(MikeO: for clarity, maybe name this `id-keyattest-policy-sig-non-exportable` or something like that?)*
 
 ## Signature-Only Policy with Administrator Override
 
 This policy is identified by `TODO`.
-It means that the private key may normally only be used for signature,
+It means that the private key may normally only be used for signature *(MikeO: and MAY NOT be exported?)*,
 but that an authorized administrator may override this in some way.
 
 ## Vendor-Defined Key Use Policies
@@ -303,6 +426,10 @@ or to cover device-specific functionality.
 For example they may describe a policy in terms of their device's proprietary policy or access control syntax#
 and publish an OID reflecting that policy.
 A verifier MUST NOT accept such a vendor-defined policy unless they fully understand the intended meaning.
+
+*(MikeO: This description reinforces a question I asked above about whether this should allow a list of policies?)*
+
+*RJK: Probably yes, then we don't have to have a sign-and-decrypt policy.
 
 # Embedding Key Attestations in Certification Requests {#sec-embedding}
 
@@ -315,10 +442,25 @@ Constraints:
 - A CA MUST follow meet all the constraints on verifiers described above.
 - A CA MUST verify that the subject public key in the certification request is the same as the subject public key in the key attestation certificate.
 
+*RJK TODO tidy up all this section
 
 
+(MikeO: 
+We'll need to be explicit about how to bundle this into a [RFC2986] Attribute. Do we need an OID for the `type`? I assume the `values` is straight-forward: it'll be a single item, which is the OCTET STRING of the `AttestationBundle`?
 
+   Attribute { ATTRIBUTE:IOSet } ::= SEQUENCE {
+        type   ATTRIBUTE.&id({IOSet}),
+        values SET SIZE(1..MAX) OF ATTRIBUTE.&Type({IOSet}{@type})
+   }
 
+)
+
+~~~
+id-attestation-bundle OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1571 }
+
+AttestationBundle ::= SEQUENCE OF Certificate
+~~~
 
 
 
@@ -333,16 +475,34 @@ Constraints:
 
 # IANA Considerations {#sec-iana}
 
-... TODO document any codepoints or OIDs that we need IANA to register ...
+The following Object Identifiers are to be assigned by IANA:
 
-we do have some new OIDs. I've used free ones, they can be replaced with something else of course.
+~~~
+id-device-information OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1567 }
+
+
+id-device-subkey-information OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1568 }
+
+id-application-key-information OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1569 }
+
+id-attestation-bundle OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1571 }
+
+id-policy-signature-only OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1570 }
+~~~
+
+*(MikeO: apparently 54392 is "Waterjuice", regisered by Justin Waters. Is that an Entrust employee? Basically, do we have the right to squat on that OID ark? We could offer the Entrust arc 2.16.840.1.114027 for prototyping, if that's better?)*
+
+*RJK: the OIDs are assigned by a free OID assignment service. If I can have something under Entrust then I'll replace them with that.
 
 <!-- End of IANA Considerations section -->
 
 
 # Security Considerations
-
-... TODO document any additional (security) GOTCHAs ...
 
 ## Key Use Constraints
 
@@ -389,6 +549,13 @@ For example there is nothing in the signature-only policy to prevent a key owner
 allowing anyone to sign with it.
 In other words, verifiers should not place undue weight on the distinction between the two classes of policy.
 
+## Uniqueness of Keys
+
+It's generally assumed that all keys are unique.
+This is the expected outcome for properly generated cryptographic keys,
+and while a collision is in principle possible by chance,
+it's much more likely that a collision indicates a failure in the key generation process (for example, {{DSA1571}}).
+
 
 <!-- End of Security Considerations section -->
 
@@ -403,7 +570,7 @@ I've got a script I've used in other I-Ds to inline include files, if that's use
 
 
 
-# ASN.1 Module
+# ASN.1 Module {#appx-asn1-module}
 
 ... any ASN.1 that we are defining goes here ...
 
@@ -429,13 +596,11 @@ DeviceSubkeyInformation ::= SEQUENCE {
   vendor UTF8STring   -- manufacturer of device
   model UTF8STring    -- device model information
   serial UTF8STring   -- device instance information
-  role UTF8String     -- description of subkey role
+  purpose UTF8String     -- description of subkey purpose
 }
 
 id-application-key-information OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1569 }
-id-policy-signature-only OBJECT IDENTIFIER ::=
-        { 1 3 6 1 4 1 54392 5 1570 }
 
 ApplicationKeyInformation ::= SEQUENCE {
   vendor UTF8STring         -- manufacturer of device
@@ -448,6 +613,10 @@ id-attestation-bundle OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1571 }
 
 AttestationBundle ::= SEQUENCE OF Certificate 
+
+
+id-policy-signature-only OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1570 }
 
 ~~~
 
