@@ -264,6 +264,10 @@ DeviceInformation ::= SEQUENCE {
 }
 ~~~
 
+
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+
 A device identity certificate MUST have the [RFC5280] basic constraints extension with the `cA` boolean set to true
 (since the device is acting as a CA).
 
@@ -308,6 +312,9 @@ DeviceSubkeyInformation ::= SEQUENCE {
 }
 ~~~
 
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+
 The meaning of the `purpose` field is entirely dependent on the device.
 
 It MUST have the [RFC5280] basic constraints extension with the `cA` boolean set to true
@@ -341,6 +348,10 @@ ApplicationKeyInformation ::= SEQUENCE {
 }
 ~~~
 
+
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+
 *MikeO: I don't fully grok how the `policy` will be used. Should it be a list (SEQUENCE of OBJECT IDENTIFIER)? Can it be empty?*
 
 If the key attestation certificate contains the [RFC5280] basic constraints extension then it MUST have the `cA` boolean set to false.
@@ -363,13 +374,15 @@ or a vendor-specific description of the policies that govern its use.
 
 # Key Use Policies {#sec-key-use-policies}
 
-Key attestation certificates contain object identifiers describing the policies that the device will enforce upon use of the private half of the application key.
+Key attestation certificates contain object identifiers describing the policies that the device will enforce upon the device's use of the application key.
 For example `id-policy-signature-only` indicates that the key may only be used to make signatures
 (and not to decrypt, as would be possible for an RSA key).
 
 *(MikeO: nitpick I would say "describing policies surrounding the use of the application key." I'm just thinking that, for example, the device can't control whether some dumb client decides to encrypt for your RSA sig-only key, so in that case the policy OID is as much for the client as for the device itself. Also has "application key" been defined in this document, or should we use one of the existing terms?)*.
 
 *RJK: I've clarified that it's for the private half of the application key, so we're not claiming we can control encrypt/verify. Leaving this open for now to check that's what you mneant.
+
+*MikeO: I've changed it again from "... enforce upon the use of the private half of the application key" to "... enforce upon the decive's use of the application key". Is that ok?*
 
 *(MikeO: I wonder if we could just borrow and tweak wording from RFC 5280's Policy OIDs section:
    In a key attestation certificate, policy object identifiers indicate
@@ -463,6 +476,9 @@ AttestationBundle ::= SEQUENCE OF Certificate
 ~~~
 
 
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+
 
 # Implementation Considerations {#sec-imp-considers}
 
@@ -495,7 +511,8 @@ id-policy-signature-only OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1570 }
 ~~~
 
-*(MikeO: apparently 54392 is "Waterjuice", regisered by Justin Waters. Is that an Entrust employee? Basically, do we have the right to squat on that OID ark? We could offer the Entrust arc 2.16.840.1.114027 for prototyping, if that's better?)*
+
+> TODO: suggest to IANA which public arc we want these in (these are just placeholders).
 
 *RJK: the OIDs are assigned by a free OID assignment service. If I can have something under Entrust then I'll replace them with that.
 

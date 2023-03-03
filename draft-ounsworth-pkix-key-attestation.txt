@@ -5,8 +5,8 @@
 LAMPS                                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                           R. Kettlewell
-Expires: 24 August 2023                                Entrust - nCipher
-                                                        20 February 2023
+Expires: 4 September 2023                              Entrust - nCipher
+                                                            3 March 2023
 
 
                       PKIX Key Attestation Format
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Ounsworth & Kettlewell   Expires 24 August 2023                 [Page 1]
+Ounsworth & Kettlewell  Expires 4 September 2023                [Page 1]
 
-Internet-Draft            PKIX Key Attestation             February 2023
+Internet-Draft            PKIX Key Attestation                March 2023
 
 
    Internet-Drafts are draft documents valid for a maximum of six months
@@ -63,7 +63,7 @@ Internet-Draft            PKIX Key Attestation             February 2023
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 August 2023.
+   This Internet-Draft will expire on 4 September 2023.
 
 Copyright Notice
 
@@ -98,33 +98,33 @@ Table of Contents
        4.5.1.  Vendor-Specific Information . . . . . . . . . . . . .  11
    5.  Key Use Policies  . . . . . . . . . . . . . . . . . . . . . .  11
      5.1.  Key Use Policy Variants . . . . . . . . . . . . . . . . .  12
-     5.2.  Signature-Only Policy . . . . . . . . . . . . . . . . . .  12
+     5.2.  Signature-Only Policy . . . . . . . . . . . . . . . . . .  13
      5.3.  Signature-Only Policy with Administrator Override . . . .  13
      5.4.  Vendor-Defined Key Use Policies . . . . . . . . . . . . .  13
    6.  Embedding Key Attestations in Certification Requests  . . . .  13
    7.  Implementation Considerations . . . . . . . . . . . . . . . .  14
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
      9.1.  Key Use Constraints . . . . . . . . . . . . . . . . . . .  15
 
 
 
-Ounsworth & Kettlewell   Expires 24 August 2023                 [Page 2]
+Ounsworth & Kettlewell  Expires 4 September 2023                [Page 2]
 
-Internet-Draft            PKIX Key Attestation             February 2023
+Internet-Draft            PKIX Key Attestation                March 2023
 
 
      9.2.  Verification Model  . . . . . . . . . . . . . . . . . . .  15
      9.3.  Policies with Administrator Override  . . . . . . . . . .  16
-     9.4.  Uniqueness of Keys  . . . . . . . . . . . . . . . . . . .  16
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  16
+     9.4.  Uniqueness of Keys  . . . . . . . . . . . . . . . . . . .  17
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  17
      10.2.  Informative References . . . . . . . . . . . . . . . . .  17
-   Appendix A.  Samples  . . . . . . . . . . . . . . . . . . . . . .  17
-   Appendix B.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  17
-   Appendix C.  Intellectual Property Considerations . . . . . . . .  18
-   Appendix D.  Contributors and Acknowledgements  . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
+   Appendix A.  Samples  . . . . . . . . . . . . . . . . . . . . . .  18
+   Appendix B.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  18
+   Appendix C.  Intellectual Property Considerations . . . . . . . .  19
+   Appendix D.  Contributors and Acknowledgements  . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 1.  Introduction
 
@@ -165,9 +165,9 @@ Internet-Draft            PKIX Key Attestation             February 2023
 
 
 
-Ounsworth & Kettlewell   Expires 24 August 2023                 [Page 3]
+Ounsworth & Kettlewell  Expires 4 September 2023                [Page 3]
 
-Internet-Draft            PKIX Key Attestation             February 2023
+Internet-Draft            PKIX Key Attestation                March 2023
 
 
 3.  Cryptographic Keys
@@ -221,9 +221,9 @@ Internet-Draft            PKIX Key Attestation             February 2023
 
 
 
-Ounsworth & Kettlewell   Expires 24 August 2023                 [Page 4]
+Ounsworth & Kettlewell  Expires 4 September 2023                [Page 4]
 
-Internet-Draft            PKIX Key Attestation             February 2023
+Internet-Draft            PKIX Key Attestation                March 2023
 
 
    Constraints:
@@ -277,9 +277,9 @@ Internet-Draft            PKIX Key Attestation             February 2023
 
 
 
-Ounsworth & Kettlewell   Expires 24 August 2023                 [Page 5]
+Ounsworth & Kettlewell  Expires 4 September 2023                [Page 5]
 
-Internet-Draft            PKIX Key Attestation             February 2023
+Internet-Draft            PKIX Key Attestation                March 2023
 
 
    *  A device certification subkey MUST NOT be used for any purpose
@@ -333,9 +333,9 @@ Internet-Draft            PKIX Key Attestation             February 2023
 
 
 
-Ounsworth & Kettlewell   Expires 24 August 2023                 [Page 6]
+Ounsworth & Kettlewell  Expires 4 September 2023                [Page 6]
 
-Internet-Draft            PKIX Key Attestation             February 2023
+Internet-Draft            PKIX Key Attestation                March 2023
 
 
    *  Exactly one key attestation certificate (see section Section 4.5)
@@ -389,9 +389,9 @@ Internet-Draft            PKIX Key Attestation             February 2023
 
 
 
-Ounsworth & Kettlewell   Expires 24 August 2023                 [Page 7]
+Ounsworth & Kettlewell  Expires 4 September 2023                [Page 7]
 
-Internet-Draft            PKIX Key Attestation             February 2023
+Internet-Draft            PKIX Key Attestation                March 2023
 
 
    *  A verifier MUST honor pathLenConstraint if present.
@@ -424,6 +424,9 @@ Internet-Draft            PKIX Key Attestation             February 2023
      serial UTF8STring   -- device instance information
    }
 
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 8.
+
    A device identity certificate MUST have the [RFC5280] basic
    constraints extension with the cA boolean set to true (since the
    device is acting as a CA).
@@ -436,19 +439,21 @@ Internet-Draft            PKIX Key Attestation             February 2023
    *  A verifier MUST reject any key attestation that does not contain
       exactly one device identity certificate.
 
+
+
+
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023                [Page 8]
+
+Internet-Draft            PKIX Key Attestation                March 2023
+
+
    *  A verifier MUST reject any device identity certificate whose
       vendor identity as indicated in the vendor field does not match
       the one associated with the trust anchor used to verify the key
       attestation.
-
-
-
-
-
-Ounsworth & Kettlewell   Expires 24 August 2023                 [Page 8]
-
-Internet-Draft            PKIX Key Attestation             February 2023
-
 
    *  Two distinct devices from the same vendor MUST NOT have the same
       device identity, i.e. they must have different values for at least
@@ -493,18 +498,21 @@ Internet-Draft            PKIX Key Attestation             February 2023
      purpose UTF8String  -- description of subkey purpose
    }
 
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023                [Page 9]
+
+Internet-Draft            PKIX Key Attestation                March 2023
+
+
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 8.
+
    The meaning of the purpose field is entirely dependent on the device.
 
    It MUST have the [RFC5280] basic constraints extension with the cA
    boolean set to true (since the device is acting as a CA).
-
-
-
-
-Ounsworth & Kettlewell   Expires 24 August 2023                 [Page 9]
-
-Internet-Draft            PKIX Key Attestation             February 2023
-
 
    No significance is attached to the subject field of a device
    delegation certificate.
@@ -543,6 +551,17 @@ Internet-Draft            PKIX Key Attestation             February 2023
      vendorinfo OCTET STRING   -- vendor-specific information
    }
 
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 8.
+
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 10]
+
+Internet-Draft            PKIX Key Attestation                March 2023
+
+
    _MikeO: I don't fully grok how the policy will be used.  Should it be
    a list (SEQUENCE of OBJECT IDENTIFIER)?  Can it be empty?_
 
@@ -553,14 +572,6 @@ Internet-Draft            PKIX Key Attestation             February 2023
    certificate.
 
    Constraints:
-
-
-
-
-Ounsworth & Kettlewell   Expires 24 August 2023                [Page 10]
-
-Internet-Draft            PKIX Key Attestation             February 2023
-
 
    *  A verifier MUST reject any key attestation certificate whose
       device identity as indicated in the vendor, model and serial
@@ -581,10 +592,10 @@ Internet-Draft            PKIX Key Attestation             February 2023
 5.  Key Use Policies
 
    Key attestation certificates contain object identifiers describing
-   the policies that the device will enforce upon use of the private
-   half of the application key.  For example id-policy-signature-only
-   indicates that the key may only be used to make signatures (and not
-   to decrypt, as would be possible for an RSA key).
+   the policies that the device will enforce upon the device's use of
+   the application key.  For example id-policy-signature-only indicates
+   that the key may only be used to make signatures (and not to decrypt,
+   as would be possible for an RSA key).
 
    _(MikeO: nitpick I would say "describing policies surrounding the use
    of the application key."  I'm just thinking that, for example, the
@@ -598,6 +609,19 @@ Internet-Draft            PKIX Key Attestation             February 2023
    application key, so we're not claiming we can control encrypt/verify.
    Leaving this open for now to check that's what you mneant.
 
+
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 11]
+
+Internet-Draft            PKIX Key Attestation                March 2023
+
+
+   _MikeO: I've changed it again from "... enforce upon the use of the
+   private half of the application key" to "... enforce upon the
+   decive's use of the application key".  Is that ok?_
+
    *(MikeO: I wonder if we could just borrow and tweak wording from RFC
    5280's Policy OIDs section: In a key attestation certificate, policy
    object identifiers indicate the policy under which the certificate
@@ -607,16 +631,6 @@ Internet-Draft            PKIX Key Attestation             February 2023
    ... these are placed within the ApplicationKeyInformation extension
    of the key attestation certificate, and not it its
    `certificatePolicies extension (cite 5280 4.2.1.4) because ... )*
-
-
-
-
-
-
-Ounsworth & Kettlewell   Expires 24 August 2023                [Page 11]
-
-Internet-Draft            PKIX Key Attestation             February 2023
-
 
    Note that these are OIDs describing policies within the key
    attestation ecosystem and are unrelated to the certificate policy
@@ -649,6 +663,17 @@ Internet-Draft            PKIX Key Attestation             February 2023
    is lost then the application key owner can be expected to generate a
    new key and certify it.  There is no need to recover the old key.
 
+
+
+
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 12]
+
+Internet-Draft            PKIX Key Attestation                March 2023
+
+
    *(MikeO: I'm not sure I see the connection between the last two
    sentences and the first one above.  Maybe need to make the connection
    clearer between losing your key, and key use policies, like mention
@@ -664,15 +689,6 @@ Internet-Draft            PKIX Key Attestation             February 2023
 
    _(MikeO: for clarity, maybe name this id-keyattest-policy-sig-non-
    exportable or something like that?)_
-
-
-
-
-
-Ounsworth & Kettlewell   Expires 24 August 2023                [Page 12]
-
-Internet-Draft            PKIX Key Attestation             February 2023
-
 
 5.3.  Signature-Only Policy with Administrator Override
 
@@ -706,6 +722,14 @@ Internet-Draft            PKIX Key Attestation             February 2023
 
    Constraints:
 
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 13]
+
+Internet-Draft            PKIX Key Attestation                March 2023
+
+
    *  A certification request SHOULD only have one embedded key
       attestation.
 
@@ -723,13 +747,6 @@ Internet-Draft            PKIX Key Attestation             February 2023
    values is straight-forward: it'll be a single item, which is the
    OCTET STRING of the AttestationBundle?
 
-
-
-Ounsworth & Kettlewell   Expires 24 August 2023                [Page 13]
-
-Internet-Draft            PKIX Key Attestation             February 2023
-
-
    Attribute { ATTRIBUTE:IOSet } ::= SEQUENCE { type
    ATTRIBUTE.&id({IOSet}), values SET SIZE(1..MAX) OF
    ATTRIBUTE.&Type({IOSet}{@type}) }
@@ -741,6 +758,9 @@ Internet-Draft            PKIX Key Attestation             February 2023
 
    AttestationBundle ::= SEQUENCE OF Certificate
 
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 8.
+
 7.  Implementation Considerations
 
    ... TODO document any (non-security) GOTCHAs ...
@@ -748,6 +768,23 @@ Internet-Draft            PKIX Key Attestation             February 2023
 8.  IANA Considerations
 
    The following Object Identifiers are to be assigned by IANA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 14]
+
+Internet-Draft            PKIX Key Attestation                March 2023
+
 
    id-device-information OBJECT IDENTIFIER ::=
            { 1 3 6 1 4 1 54392 5 1567 }
@@ -765,26 +802,13 @@ Internet-Draft            PKIX Key Attestation             February 2023
    id-policy-signature-only OBJECT IDENTIFIER ::=
            { 1 3 6 1 4 1 54392 5 1570 }
 
-   _(MikeO: apparently 54392 is "Waterjuice", regisered by Justin
-   Waters.  Is that an Entrust employee?  Basically, do we have the
-   right to squat on that OID ark?  We could offer the Entrust arc
-   2.16.840.1.114027 for prototyping, if that's better?)_
+      TODO: suggest to IANA which public arc we want these in (these are
+      just placeholders).
 
    *RJK: the OIDs are assigned by a free OID assignment service.  If I
    can have something under Entrust then I'll replace them with that.
 
 9.  Security Considerations
-
-
-
-
-
-
-
-Ounsworth & Kettlewell   Expires 24 August 2023                [Page 14]
-
-Internet-Draft            PKIX Key Attestation             February 2023
-
 
 9.1.  Key Use Constraints
 
@@ -808,6 +832,15 @@ Internet-Draft            PKIX Key Attestation             February 2023
        the application key (for example, the certification request
        verification described in Section 6 it must also check that all
        copies of the appcalition key match.
+
+
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 15]
+
+Internet-Draft            PKIX Key Attestation                March 2023
+
 
    2.  It may accept a key attestation, trust anchor, vendor identity
        and at least one acceptable policy.  It will verify the key
@@ -835,13 +868,6 @@ Internet-Draft            PKIX Key Attestation             February 2023
    the caller ommitting some of the necessary checks.  For a publicly
    available API this robustness is particularly appropriate.
 
-
-
-Ounsworth & Kettlewell   Expires 24 August 2023                [Page 15]
-
-Internet-Draft            PKIX Key Attestation             February 2023
-
-
 9.3.  Policies with Administrator Override
 
    No attempt is made to define the scope of administrator override in
@@ -859,6 +885,18 @@ Internet-Draft            PKIX Key Attestation             February 2023
    oracle for their key, allowing anyone to sign with it.  In other
    words, verifiers should not place undue weight on the distinction
    between the two classes of policy.
+
+
+
+
+
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 16]
+
+Internet-Draft            PKIX Key Attestation                March 2023
+
 
 9.4.  Uniqueness of Keys
 
@@ -888,16 +926,6 @@ Internet-Draft            PKIX Key Attestation             February 2023
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/info/rfc5280>.
 
-
-
-
-
-
-Ounsworth & Kettlewell   Expires 24 August 2023                [Page 16]
-
-Internet-Draft            PKIX Key Attestation             February 2023
-
-
    [RFC5914]  Housley, R., Ashmore, S., and C. Wallace, "Trust Anchor
               Format", RFC 5914, DOI 10.17487/RFC5914, June 2010,
               <https://www.rfc-editor.org/info/rfc5914>.
@@ -917,6 +945,14 @@ Internet-Draft            PKIX Key Attestation             February 2023
               (DER)", ISO/IEC 8825-1:2015, November 2015.
 
 10.2.  Informative References
+
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 17]
+
+Internet-Draft            PKIX Key Attestation                March 2023
+
 
    [DSA1571]  Debian Project, "DSA-1571-1 openssl - predictable random
               number generator", May 2008,
@@ -949,9 +985,29 @@ Appendix B.  ASN.1 Module
 
 
 
-Ounsworth & Kettlewell   Expires 24 August 2023                [Page 17]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 18]
 
-Internet-Draft            PKIX Key Attestation             February 2023
+Internet-Draft            PKIX Key Attestation                March 2023
 
 
    -- TODO probably need some ASN.1 furniture around this
@@ -1005,9 +1061,9 @@ Appendix C.  Intellectual Property Considerations
 
 
 
-Ounsworth & Kettlewell   Expires 24 August 2023                [Page 18]
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 19]
 
-Internet-Draft            PKIX Key Attestation             February 2023
+Internet-Draft            PKIX Key Attestation                March 2023
 
 
 Appendix D.  Contributors and Acknowledgements
@@ -1061,4 +1117,4 @@ Authors' Addresses
 
 
 
-Ounsworth & Kettlewell   Expires 24 August 2023                [Page 19]
+Ounsworth & Kettlewell  Expires 4 September 2023               [Page 20]
