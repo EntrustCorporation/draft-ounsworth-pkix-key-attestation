@@ -1,6 +1,7 @@
 import os
 
 from pyasn1.codec.der.encoder import encode
+from pyasn1_modules.rfc5280 import ExtKeyUsageSyntax, id_ce_extKeyUsage
 
 from .asn1 import (DeviceInformation, DeviceSubkeyInformation,
                    id_ApplicationKeyInformation, id_deviceSubkeyInformation)
@@ -53,8 +54,16 @@ class DeviceSubkey(CA):
         dsi['serial'] = self.device.serial
         return encode(dsi)
 
-    def sign_appkey(self, appkey):
-        """Sign an application key origin certificate"""
+    def sign_appkey(self, appkey, uses):
+        """Sign an application key origin certificate
+        
+        appkey -- Key object to sign
+        uses -- Key uses permitted by the HSM, as a list of OIDs
+        """
+        extKeyUsage = ExtKeyUsageSyntax()
+        extKeyUsage.extend(uses)
+        extKeyUsage = encode(extKeyUsage)
         return self.sign_child(appkey, "appkey_extensions", {
-            str(id_ApplicationKeyInformation): appkey.appkeyinfo(self.device)
+            str(id_ApplicationKeyInformation): appkey.appkeyinfo(self.device),
+            str(id_ce_extKeyUsage): extKeyUsage,
         })

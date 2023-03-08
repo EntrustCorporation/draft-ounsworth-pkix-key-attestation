@@ -3,7 +3,7 @@ import subprocess
 
 from pyasn1.codec.der.encoder import encode
 
-from .asn1 import ApplicationKeyInformation, id_SignatureOnly, id_AttestationBundle
+from .asn1 import ApplicationKeyInformation, id_AttestationBundle
 
 
 class Key:
@@ -25,7 +25,6 @@ class Key:
         aki['vendor'] = device.vendor
         aki['model'] = device.model
         aki['serial'] = device.serial
-        aki['policy'] = id_SignatureOnly
         aki['vendorinfo'] = b'vendor-specific information goes here'
         return encode(aki)
 

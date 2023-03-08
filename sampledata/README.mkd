@@ -8,7 +8,7 @@ The `attestation` Python module uses OpenSSL is used for all key generation and 
 
 * It's envisaged that a real implementation would need only just enough RFC5280 support to
 sign the specific certificates required to make a key attestation,
-rather than necessarily containing a complete general-purpose CA.)
+rather than necessarily containing a complete general-purpose CA.
 * Keys and devices are identified by UUID in this mockup. This isn't a requirement of the specification, just a decision made for the mockup.
 * The sample data is full of private keys. Please do not bug us about private keys in our github, they are purely for test and explanatory purposes.
 * The Python is a bit "a real programmer can write a shell script in any language". I regret nothing.

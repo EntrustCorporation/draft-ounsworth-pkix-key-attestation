@@ -1,11 +1,12 @@
 import os
 import subprocess
 
+from .asn1 import id_Recoverable, id_Signature
+from .attestation import Attestation
 from .ca import CA
 from .common import rootdir
 from .device import Device, DeviceSubkey
 from .key import Key
-from . attestation import Attestation
 
 
 def run():
@@ -60,7 +61,7 @@ def run():
     os.makedirs(f"{rootdir}/appkeys/8ee89f19-83c6-4317-bf0c-6d8a5a257002/private", exist_ok=True, mode=0o700)
     appkey = Key(f"{rootdir}/appkeys/8ee89f19-83c6-4317-bf0c-6d8a5a257002/private/key.pem", "/CN=8ee89f19-83c6-4317-bf0c-6d8a5a257002")
     appkey.generate()
-    appkeyCert = subkey.sign_appkey(appkey)
+    appkeyCert = subkey.sign_appkey(appkey, [id_Signature, id_Recoverable])
 
     # Put together the attestation bundle for the key
     attestation = Attestation([acme_factory_uk_ca.cert(), device.cert(), subkey.cert(), appkeyCert])
