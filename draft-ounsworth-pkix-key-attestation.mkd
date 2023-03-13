@@ -2,7 +2,7 @@
 title: PKIX Key Attestation Format
 abbrev: PKIX Key Attestation
 # <!-- EDNOTE: Edits the draft name -->
-docname: draft-ounsworth-pkix-key-attestation-00
+docname: draft-ounsworth-pkix-key-attestation-01
 
 # <!-- stand_alone: true -->
 ipr: trust200902

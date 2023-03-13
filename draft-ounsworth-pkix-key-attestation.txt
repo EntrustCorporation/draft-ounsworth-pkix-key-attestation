@@ -13,7 +13,7 @@ Expires: 14 September 2023                             Entrust - nCipher
 
 
                       PKIX Key Attestation Format
-                draft-ounsworth-pkix-key-attestation-00
+                draft-ounsworth-pkix-key-attestation-01
 
 Abstract
 
