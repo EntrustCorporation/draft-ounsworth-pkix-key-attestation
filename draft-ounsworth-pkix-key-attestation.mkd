@@ -47,6 +47,27 @@ author:
       code: CB1 2GA
       email: richard.kettlewell@entrust.com
 
+    -
+      ins: B. Couillard
+      name: Bruno Couillard
+      org: CRYPTO4A
+      street: 1550 Laperriere Ave
+      city: Ottawa, On
+      country: Canada
+      code: K1Z 7T2
+      email: bruno@crypto4a.com
+
+    -
+      ins: JP Fiset
+      name: Jean-Pierre Fiset
+      org: CRYPTO4A
+      street: 1550 Laperriere Ave
+      city: Ottawa, On
+      country: Canada
+      code: K1Z 7T2
+      email: jp@crypto4a.com
+      
+
 normative:
   RFC2986:
   RFC5280:

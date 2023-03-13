@@ -1,0 +1,16 @@
+A list of interesting parties for making a first meeting.
+
+Entrust
+Mike Ounsworth
+Richard Kettlewell -- nCipher
+Chris Trufan
+
+Crypto4A
+Bruno Couillard
+JP Fiset
+
+Forntanix
+Sander Temme (pending confirmation of participation)
+
+Keyfactor
+Mike Agrenius Kushner <Mike.Kushner@keyfactor.com>
