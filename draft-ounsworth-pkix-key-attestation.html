@@ -1185,7 +1185,7 @@ li > p:last-of-type {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 4 September 2023</td>
+<td class="center">Expires 14 September 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1198,12 +1198,12 @@ li > p:last-of-type {
 <dd class="internet-draft">draft-ounsworth-pkix-key-attestation-00</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-03-03" class="published">3 March 2023</time>
+<time datetime="2023-03-13" class="published">13 March 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-09-04">4 September 2023</time></dd>
+<dd class="expires"><time datetime="2023-09-14">14 September 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1266,7 +1266,7 @@ for example to support a decision about whether to issue a certificate. In contr
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 September 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 September 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1347,16 +1347,16 @@ for example to support a decision about whether to issue a certificate. In contr
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-key-use-policies-2" class="xref">Key Use Policies</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-key-usage-2" class="xref">Key Usage</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-key-use-policy-variants-2" class="xref">Key Use Policy Variants</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-distinctions-between-key-use" class="xref">Distinctions between Key Use Policies</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-signature-only-policy-2" class="xref">Signature-Only Policy</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-recoverable-keys-3" class="xref">Recoverable Keys</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="xref">5.3</a>.  <a href="#name-signature-only-policy-with-a" class="xref">Signature-Only Policy with Administrator Override</a></p>
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="xref">5.3</a>.  <a href="#name-key-protection-2" class="xref">Key Protection</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
                 <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="xref">5.4</a>.  <a href="#name-vendor-defined-key-use-polic" class="xref">Vendor-Defined Key Use Policies</a></p>
@@ -1382,7 +1382,7 @@ for example to support a decision about whether to issue a certificate. In contr
                 <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="xref">9.2</a>.  <a href="#name-verification-model-2" class="xref">Verification Model</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="xref">9.3</a>.  <a href="#name-policies-with-administrator-" class="xref">Policies with Administrator Override</a></p>
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="xref">9.3</a>.  <a href="#name-recoverable-keys-4" class="xref">Recoverable Keys</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
                 <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="xref">9.4</a>.  <a href="#name-uniqueness-of-keys-2" class="xref">Uniqueness of Keys</a></p>
@@ -1739,33 +1739,33 @@ DeviceSubkeyInformation ::= SEQUENCE {
 <p id="section-4.5-1">A key attestation certificate certifies that an application key was created in a particular device and is managed according to a particular policy.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 <p id="section-4.5-2">A key attestation certificate MUST contain a <code>ApplicationKeyInformation</code> extension
 identified by <code>id-application-key-information</code>.
-This contains the vendor identity, device model, device serial, key use policy (see <a href="#sec-key-use-policies" class="xref">Section 5</a>) and vendor-specific information.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.5-3">
+This contains the vendor identity, device model, device serial and vendor-specific information.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
+<p id="section-4.5-3">A key attestation certicate MUST contain an <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> Extended Key Usage extension
+documenting how the device will permit the key to be used.
+See <a href="#sec-key-use-policies" class="xref">Section 5</a> for more details.<a href="#section-4.5-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.5-4">
 <pre>
-id-policy-signature-only OBJECT IDENTIFIER ::=
-        { 1 3 6 1 4 1 54392 5 1570 }
-
 ApplicationKeyInformation ::= SEQUENCE {
   vendor UTF8STring         -- manufacturer of device
   model UTF8STring          -- device model information
-  policy OBJECT IDENTIFIER  -- policy governing key use
   vendorinfo OCTET STRING   -- vendor-specific information
 }
-</pre><a href="#section-4.5-3" class="pilcrow">¶</a>
+</pre><a href="#section-4.5-4" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-4.5-4.1">
-            <p id="section-4.5-4.1.1">EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see <a href="#sec-iana" class="xref">Section 8</a>.<a href="#section-4.5-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-4.5-5.1">
+            <p id="section-4.5-5.1.1">EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see <a href="#sec-iana" class="xref">Section 8</a>.<a href="#section-4.5-5.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-4.5-5"><em>MikeO: I don't fully grok how the <code>policy</code> will be used. Should it be a list (SEQUENCE of OBJECT IDENTIFIER)? Can it be empty?</em><a href="#section-4.5-5" class="pilcrow">¶</a></p>
-<p id="section-4.5-6">If the key attestation certificate contains the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> basic constraints extension then it MUST have the <code>cA</code> boolean set to false.<a href="#section-4.5-6" class="pilcrow">¶</a></p>
+<p id="section-4.5-6">If the key attestation certificate contains the <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> Basic Constraints extension then it MUST have the <code>cA</code> boolean set to false.<a href="#section-4.5-6" class="pilcrow">¶</a></p>
 <p id="section-4.5-7">No significance is attached to the subject field of a key attestation certificate.<a href="#section-4.5-7" class="pilcrow">¶</a></p>
 <p id="section-4.5-8">Constraints:<a href="#section-4.5-8" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.5-9.1">A verifier MUST reject any key attestation certificate whose device identity as indicated in the <code>vendor</code>, <code>model</code> and <code>serial</code> fields does not match the values from the device identity certificate.<a href="#section-4.5-9.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.5-9.2">A verifier MUST reject any key attestation certificate whose policy is not in their list of acceptable policies.<a href="#section-4.5-9.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.5-9.2">A verifier MUST reject any key attestation certificate which does not contain exactly one <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> Extended Key Usage extension<a href="#section-4.5-9.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.5-9.3">A verifier MUST reject any key attestation certificate which permits operations inconsistent with its acceptable policies.<a href="#section-4.5-9.3" class="pilcrow">¶</a>
 </li>
         </ul>
 <div id="vendor-specific-information">
@@ -1786,65 +1786,102 @@ or a vendor-specific description of the policies that govern its use.<a href="#s
 </div>
 <div id="sec-key-use-policies">
 <section id="section-5">
-      <h2 id="name-key-use-policies-2">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-key-use-policies-2" class="section-name selfRef">Key Use Policies</a>
+      <h2 id="name-key-usage-2">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-key-usage-2" class="section-name selfRef">Key Usage</a>
       </h2>
-<p id="section-5-1">Key attestation certificates contain object identifiers describing the policies that the device will enforce upon the device's use of the application key.
-For example <code>id-policy-signature-only</code> indicates that the key may only be used to make signatures
-(and not to decrypt, as would be possible for an RSA key).<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2"><em>(MikeO: nitpick I would say "describing policies surrounding the use of the application key." I'm just thinking that, for example, the device can't control whether some dumb client decides to encrypt for your RSA sig-only key, so in that case the policy OID is as much for the client as for the device itself. Also has "application key" been defined in this document, or should we use one of the existing terms?)</em>.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">*RJK: I've clarified that it's for the private half of the application key, so we're not claiming we can control encrypt/verify. Leaving this open for now to check that's what you mneant.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4"><em>MikeO: I've changed it again from "... enforce upon the use of the private half of the application key" to "... enforce upon the decive's use of the application key". Is that ok?</em><a href="#section-5-4" class="pilcrow">¶</a></p>
-<p id="section-5-5">*(MikeO: I wonder if we could just borrow and tweak wording from RFC 5280's Policy OIDs section:
-   In a key attestation certificate, policy object identifiers indicate
-   the policy under which the certificate has been issued and the
-   purposes for which the certificate may be used.<a href="#section-5-5" class="pilcrow">¶</a></p>
-<p id="section-5-6">... these are placed within the <code>ApplicationKeyInformation</code> extension of the key attestation certificate, and not it its `certificatePolicies extension (cite 5280 4.2.1.4) because ...
-)*<a href="#section-5-6" class="pilcrow">¶</a></p>
-<p id="section-5-7">Note that these are OIDs describing policies within the key attestation ecosystem and are unrelated to the certificate policy OIDs defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> section 4.2.1.4.<a href="#section-5-7" class="pilcrow">¶</a></p>
-<p id="section-5-8"><em>(MikeO: it seems weird to say "These are unrelated to X.509 policy OIDs", and then give the example <code>id-policy-signature-only</code> which, at first glance, looks like it's basically an X.509 KeyUsage.)</em><a href="#section-5-8" class="pilcrow">¶</a></p>
-<p id="section-5-9">*RJK: I see where you're coming from - I'll have a look at what we can do with KeyUsage, and come back to the other stuff about key policies if nothing else changes.<a href="#section-5-9" class="pilcrow">¶</a></p>
-<div id="key-use-policy-variants">
+<p id="section-5-1">Key attestation certificates contain an <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> s4.2.1.12 Extended Key Usage extension
+describing how the device will permit the key to be used.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">The standard ExtendedKeyUsage purposes defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> are not necessarily suitable in this context. For example the standard ExtendedKeyUsage OIDs are also not necessarily suitable. For example the device may have no information about whether a signing key is intended to be used for server authentication, client authentication, or
+any other application of digital signatures.
+For this reason an additional set of key usage purposes are defined here.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<div id="section-5-3">
+<pre class="lang-ASN.1 sourcecode">
+id-Signature       OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1613 }
+-- the device will generate signatures with the key
+
+id-Decryption      OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1614 }
+-- the device will decrypt messages with the key and return the plaintext
+
+id-KeyAgreement    OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1615 }
+-- the device will use the key for key agreement
+
+id-KeyTransport    OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1616 }
+-- the device will use the key for key transport
+
+id-Recoverable     OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1612 }
+-- the key is can be recovered under administrative authorization
+</pre><a href="#section-5-3" class="pilcrow">¶</a>
+</div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-5-4.1">
+          <p id="section-5-4.1.1">EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see <a href="#sec-iana" class="xref">Section 8</a>.<a href="#section-5-4.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-5-5.1">
+          <p id="section-5-5.1.1">EDNOTE: We should consult particurly with CAs to see if there are other properties that would be beneficial to include in this list.<a href="#section-5-5.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-5-6">Constraints:<a href="#section-5-6" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5-7.1">If the device does not include <code>id-Signature</code> in the list of key use purposes then it MUST NOT generate signatures with the key.<a href="#section-5-7.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-7.2">If the device does not include <code>id-Decryption</code> in the list of key use purposes then it MUST NOT decrypt ciphertexts with the key.<a href="#section-5-7.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-7.3">If the device does not include <code>id-KeyAgreement</code> in the list of key use purposes then it MUST NOT use the key for key agreement.<a href="#section-5-7.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-7.4">If the device does not include <code>id-KeyTransport</code> in the list of key use purposes then it MUST NOT use the key for key transport.<a href="#section-5-7.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-5-7.5">If the device does not include <code>id-Recoverable</code> in the list of key use purposes then it MUST NOT permit recovery operations on the key.<a href="#section-5-7.5" class="pilcrow">¶</a>
+</li>
+      </ul>
+<div id="distinctions-between-key-use-policies">
 <section id="section-5.1">
-        <h3 id="name-key-use-policy-variants-2">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-key-use-policy-variants-2" class="section-name selfRef">Key Use Policy Variants</a>
+        <h3 id="name-distinctions-between-key-use">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-distinctions-between-key-use" class="section-name selfRef">Distinctions between Key Use Policies</a>
         </h3>
-<p id="section-5.1-1">Each of the policies described below has two variants.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.1-2">
-<li id="section-5.1-2.1">In the first, the policy means that a key may be used only in certain ways,
-and this cannot be overidden even by an administrator.<a href="#section-5.1-2.1" class="pilcrow">¶</a>
+<ul class="normal">
+<li class="normal" id="section-5.1-1.1">Decryption means using the key to decrypt a ciphertext and returning the plaintext to the caller, outside the device<a href="#section-5.1-1.1" class="pilcrow">¶</a>
 </li>
-          <li id="section-5.1-2.2">In the second, the policy means that a key may normally be used only in certain ways,
-but that an authorized administrator may override this in some way
-(for example, in order to facilitate disaster recovery).<a href="#section-5.1-2.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.1-1.2">Key Transport means using the key to decrypt a ciphertext and using the plaintext as key material, managed by the device<a href="#section-5.1-1.2" class="pilcrow">¶</a>
 </li>
-        </ol>
-<p id="section-5.1-3">For example, for a CA processing a key attestation bundle in a certificate request, normally only the first variant (no administrative override) would be acceptable.
-If the application key is lost then the application key owner can be expected
-to generate a new key and certify it.
-There is no need to recover the old key.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">*(MikeO: I'm not sure I see the connection between the last two sentences and the first one above. Maybe need to make the connection clearer between losing your key, and key use policies, like mention above that non-exportability is one of the important policies?)<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">In other use cases, the weaker policy may be more appropriate.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.1-1.3">Key Agreement means using the key to agree a secret shared with another party, as prelude to further secure communication<a href="#section-5.1-1.3" class="pilcrow">¶</a>
+</li>
+        </ul>
 </section>
 </div>
-<div id="signature-only-policy">
+<div id="recoverable-keys">
 <section id="section-5.2">
-        <h3 id="name-signature-only-policy-2">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-signature-only-policy-2" class="section-name selfRef">Signature-Only Policy</a>
+        <h3 id="name-recoverable-keys-3">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-recoverable-keys-3" class="section-name selfRef">Recoverable Keys</a>
         </h3>
-<p id="section-5.2-1">This policy is identified by <code>id-policy-signature-only</code>.
-It means that the private key may only be used for signature, and MAY NOT be exported in plaintext outside the device.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2"><em>(MikeO: for clarity, maybe name this <code>id-keyattest-policy-sig-non-exportable</code> or something like that?)</em><a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">The <code>id-Recoverable</code> key use purpose indicates that the policies controlling use of the key may
+be modified by a suitably authorized administrator.
+This may be necessary, for example, to ensure that the key remains available for use
+even when an authentication token is lost or destroyed.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">The scope of possible modifications, and the kind of authorization required,
+are intentionally vague.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">See <a href="#sec-security-recovery" class="xref">Section 9.3</a> for further discussion.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="signature-only-policy-with-administrator-override">
+<div id="key-protection">
 <section id="section-5.3">
-        <h3 id="name-signature-only-policy-with-a">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-signature-only-policy-with-a" class="section-name selfRef">Signature-Only Policy with Administrator Override</a>
+        <h3 id="name-key-protection-2">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-key-protection-2" class="section-name selfRef">Key Protection</a>
         </h3>
-<p id="section-5.3-1">This policy is identified by <code>TODO</code>.
-It means that the private key may normally only be used for signature <em>(MikeO: and MAY NOT be exported?)</em>,
-but that an authorized administrator may override this in some way.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">These key use purposes are not intended to describe how applications keys is protected by the device.
+For example one device may protect keys by maintaining them inside a hardended boundary
+at all times;
+another may allow keys to be used across multiple devices
+by encrypting them under a shared master key,
+or by sharing them with other authorized devices via a secure channel.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">Provided the device is able to guarantee that the key use policy it signs will be honored,
+the mechanism is uses to protect application keys is not relevant.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="vendor-defined-key-use-policies">
@@ -1852,14 +1889,12 @@ but that an authorized administrator may override this in some way.<a href="#sec
         <h3 id="name-vendor-defined-key-use-polic">
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-vendor-defined-key-use-polic" class="section-name selfRef">Vendor-Defined Key Use Policies</a>
         </h3>
-<p id="section-5.4-1">A vendor may define policies outside the list described in the list document,
+<p id="section-5.4-1">A vendor may define key use policies outside the list above,
 for example reflecting policies not envisaged by this document
 or to cover device-specific functionality.
-For example they may describe a policy in terms of their device's proprietary policy or access control syntax#
-and publish an OID reflecting that policy.
-A verifier MUST NOT accept such a vendor-defined policy unless they fully understand the intended meaning.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.4-2"><em>(MikeO: This description reinforces a question I asked above about whether this should allow a list of policies?)</em><a href="#section-5.4-2" class="pilcrow">¶</a></p>
-<p id="section-5.4-3">*RJK: Probably yes, then we don't have to have a sign-and-decrypt policy.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
+For example they may describe a policy in terms of their device's proprietary policy or access control syntax
+and publish an OID reflecting that policy.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">A verifier MUST NOT accept such a vendor-defined policy unless they fully understand the intended meaning.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1922,7 +1957,6 @@ AttestationBundle ::= SEQUENCE OF Certificate
 id-device-information OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1567 }
 
-
 id-device-subkey-information OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1568 }
 
@@ -1932,8 +1966,20 @@ id-application-key-information OBJECT IDENTIFIER ::=
 id-attestation-bundle OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1571 }
 
-id-policy-signature-only OBJECT IDENTIFIER ::=
-        { 1 3 6 1 4 1 54392 5 1570 }
+id-Signature       OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1613 }
+
+id-Decryption      OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1614 }
+
+id-KeyAgreement    OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1615 }
+
+id-KeyTransport    OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1616 }
+
+id-Recoverable     OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1612 }
 </pre><a href="#section-8-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -1941,7 +1987,12 @@ id-policy-signature-only OBJECT IDENTIFIER ::=
           <p id="section-8-3.1.1">TODO: suggest to IANA which public arc we want these in (these are just placeholders).<a href="#section-8-3.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-8-4">*RJK: the OIDs are assigned by a free OID assignment service. If I can have something under Entrust then I'll replace them with that.<a href="#section-8-4" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-8-4.1">
+          <p id="section-8-4.1.1">TODO update for our new EKU OIDs<a href="#section-8-4.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-8-5">*RJK: the OIDs are assigned by a free OID assignment service. If I can have something under Entrust then I'll replace them with that.<a href="#section-8-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1988,21 +2039,25 @@ The advantage of the later models is that they are more robust against the calle
 For a publicly available API this robustness is particularly appropriate.<a href="#section-9.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="policies-with-administrator-override">
+<div id="sec-security-recovery">
 <section id="section-9.3">
-        <h3 id="name-policies-with-administrator-">
-<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-policies-with-administrator-" class="section-name selfRef">Policies with Administrator Override</a>
+        <h3 id="name-recoverable-keys-4">
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-recoverable-keys-4" class="section-name selfRef">Recoverable Keys</a>
         </h3>
-<p id="section-9.3-1">No attempt is made to define the scope of administrator override in policies which include it.
+<p id="section-9.3-1">The definition of recoverability is intentionally vague.
 Depending on the device it may mean that,
-for example, a signature-only RSA key could additional be given decrypt permission,
-or it could mean that private key material could be exploited in plaintext.
-The range of possibilities is to broad to tie down in a device-independent specification.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+for example, a signature-only RSA key could additionally be given decrypt permission,
+or it could mean that private key material could be extracted in plaintext.
+The range of possibilities is too broad to tie down in a device-independent specification.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
 <p id="section-9.3-2">It should be noted that placing trust in a key does mean generally placing trust in the operators and administrators
-of the device that contains it, even without any possibilty of administrator override of the policy governing its use.
-For example there is nothing in the signature-only policy to prevent a key owner exposing a signature oracle for their key,
+of the device that contains it, even without any possibility of administrator override of the policy governing its use.
+For example, even if a key is not recoverable, there is nothing to prevent a key owner exposing a signature oracle for their key,
 allowing anyone to sign with it.
-In other words, verifiers should not place undue weight on the distinction between the two classes of policy.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
+As such, if the key owner and the device administrator belong to the same organization,
+and have aligned priorities, there is not much practical difference between recoverable and non-recoverable keys.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
+<p id="section-9.3-3">However, in the example where a device is owned and managed by a service provider but leased to an end user,
+the key owner and the device administrators belong to separate organizations and have different priorities.
+In that case a verifier may prefer to reject recoverable keys.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="uniqueness-of-keys">
@@ -2123,9 +2178,6 @@ id-attestation-bundle OBJECT IDENTIFIER ::=
 
 AttestationBundle ::= SEQUENCE OF Certificate
 
-
-id-policy-signature-only OBJECT IDENTIFIER ::=
-        { 1 3 6 1 4 1 54392 5 1570 }
 
 </pre><a href="#appendix-B-2" class="pilcrow">¶</a>
 </div>

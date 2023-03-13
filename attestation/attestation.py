@@ -8,15 +8,18 @@ from pyasn1.codec.der.encoder import encode
 from pyasn1_modules.rfc2985 import ExtensionRequest, pkcs_9_at_extensionRequest
 from pyasn1_modules.rfc2986 import CertificationRequest
 from pyasn1_modules.rfc5280 import (AttributeValue, Certificate,
-                                    id_at_commonName, id_at_countryName,
+                                    ExtKeyUsageSyntax, id_at_commonName,
+                                    id_at_countryName,
                                     id_at_organizationalUnitName,
-                                    id_at_organizationName)
+                                    id_at_organizationName,
+                                    id_ce_authorityKeyIdentifier,
+                                    id_ce_basicConstraints, id_ce_extKeyUsage,
+                                    id_ce_subjectKeyIdentifier)
 
 from .asn1 import (ApplicationKeyInformation, AttestationBundle,
                    DeviceInformation, DeviceSubkeyInformation,
                    id_ApplicationKeyInformation, id_AttestationBundle,
-                   id_deviceInformation, id_deviceSubkeyInformation,
-                   id_SignatureOnly, policies)
+                   id_deviceInformation, id_deviceSubkeyInformation, id_Recoverable, policies)
 from .common import cert_to_der, cert_to_pem, req_to_der
 
 RE_ISSUER = re.compile(b'Issuer: (.*)')
@@ -91,21 +94,29 @@ class Attestation:
         for cert in self.bundle:
             cert, _ = decode(cert_to_der(cert), asn1Spec=Certificate())
             tbs = cert[0]
-            ids = []
+            certTypeExtensions = []
+            keyUsageExtensions = []
+            unknownExtensions = []
             for ext in tbs['extensions']:
                 id = ext["extnID"]
                 value = ext["extnValue"]
                 if id in {id_deviceInformation, id_deviceSubkeyInformation, id_ApplicationKeyInformation}:
-                    ids.append(id)
-            if len(ids) == 0:
+                    certTypeExtensions.append(id)
+                elif id == id_ce_extKeyUsage:
+                    keyUsageExtensions.append(id)
+                elif id in {id_ce_subjectKeyIdentifier, id_ce_authorityKeyIdentifier, id_ce_basicConstraints}:
+                    pass
+                else:
+                    unknownExtensions.append(id)
+            if len(certTypeExtensions) == 0:
                 certType = 0
-            elif len(ids) > 1:
+            elif len(certTypeExtensions) > 1:
                 raise Exception("multiple certificate type extensions found")
-            elif ids[0] == id_deviceInformation:
+            elif certTypeExtensions[0] == id_deviceInformation:
                 certType = 1
-            elif ids[0] == id_deviceSubkeyInformation:
+            elif certTypeExtensions[0] == id_deviceSubkeyInformation:
                 certType = 2
-            elif ids[0] == id_ApplicationKeyInformation:
+            elif certTypeExtensions[0] == id_ApplicationKeyInformation:
                 certType = 3
             # Can't 'go backwards' e.g. device identity certificate after device delegation certificate
             if certType < lastCertType:
@@ -116,6 +127,18 @@ class Attestation:
                 if certType == 3:
                     raise Exception("multiple key attestation certificates found")
             lastCertType = certType
+            # Don't want duplicates
+            if len(keyUsageExtensions) > 1:
+                raise Exception("multiple KeyUsage extensions found")
+            # Don't want any unrecognized extensions
+            if len(unknownExtensions) > 0:
+                unknownExtensions = ", ".join([str(id) for id in unknownExtensions])
+                raise Exception(f"unrecognized extensions found: {unknownExtensions}")
+            # Validation specific to key attestation certificates
+            if certType == 3:
+                if len(keyUsageExtensions) == 0:
+                    raise Exception("no KeyUsage extension found")
+                # TODO do we want to enforce what uses appear, e.g. forbid anyExtendedKeyUsage?
 
     def verify(self, rootcert, csr):
         """Verify an attestation bundle and check that it's consistent with a CSR
@@ -134,6 +157,7 @@ class Attestation:
 
     def analyse(self, file=sys.stdout):
         """Write an analysis of the certificate chain"""
+        unknown_uses = 0
         for cert in self.bundle:
             # Formatting distinguished names is hard, so shell out for that bit
             cmd = ["openssl", "x509", "-text", "-noout"]
@@ -142,6 +166,12 @@ class Attestation:
             subject = str(RE_SUBJECT.search(formatted).group(1), "UTF-8")
             cert, _ = decode(cert_to_der(cert), asn1Spec=Certificate())
             tbs = cert[0]
+            # Find extensions
+            for ext in tbs['extensions']:
+                id = ext["extnID"]
+                value = ext["extnValue"]
+                if id == id_ce_extKeyUsage:
+                    ekus, _ = decode(value, ExtKeyUsageSyntax())
             for ext in tbs['extensions']:
                 id = ext["extnID"]
                 value = ext["extnValue"]
@@ -164,12 +194,25 @@ class Attestation:
                     print(f"Vendor:         {value['vendor']}", file=file)
                     print(f"Model:          {value['model']}", file=file)
                     print(f"Serial:         {value['serial']}", file=file)
-                    policy = value['policy']
-                    policy = policies.get(policy, policy)
-                    print(f"Policy:         {policy}", file=file)
                     vendorinfo = bytes(value['vendorinfo']).hex(' ')
                     print(f"Vendor info:    {vendorinfo}", file=file)
+                    uses = []
+                    recoverable = False
+                    for eku in ekus:
+                        if eku == id_Recoverable:
+                            recoverable = True
+                            continue
+                        if eku in policies:
+                            uses.append(policies[eku])
+                        else:
+                            uses.append(str(eku))
+                            unknown_uses += 1
+                    uses = ", ".join(uses)
+                    print(f"Usage:          {uses}", file=file)
+                    print(f"Recoverable:    {recoverable}", file=file)
             print(f"Issuer:         {issuer}", file=file)
             print(f"Subject:        {subject}", file=file)
+            if unknown_uses > 0:
+                print(f"WARNING! {unknown_uses} unknonwn uses found", file=file)
             print("", file=file)
 

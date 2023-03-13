@@ -355,16 +355,16 @@ A key attestation certificate certifies that an application key was created in a
 
 A key attestation certificate MUST contain a `ApplicationKeyInformation` extension
 identified by `id-application-key-information`.
-This contains the vendor identity, device model, device serial, key use policy (see {{sec-key-use-policies}}) and vendor-specific information.
+This contains the vendor identity, device model, device serial and vendor-specific information.
+
+A key attestation certicate MUST contain an [RFC5280] Extended Key Usage extension
+documenting how the device will permit the key to be used.
+See {{sec-key-use-policies}} for more details.
 
 ~~~
-id-policy-signature-only OBJECT IDENTIFIER ::=
-        { 1 3 6 1 4 1 54392 5 1570 }
-
 ApplicationKeyInformation ::= SEQUENCE {
   vendor UTF8STring         -- manufacturer of device
   model UTF8STring          -- device model information
-  policy OBJECT IDENTIFIER  -- policy governing key use
   vendorinfo OCTET STRING   -- vendor-specific information
 }
 ~~~
@@ -372,17 +372,15 @@ ApplicationKeyInformation ::= SEQUENCE {
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
-
-*MikeO: I don't fully grok how the `policy` will be used. Should it be a list (SEQUENCE of OBJECT IDENTIFIER)? Can it be empty?*
-
-If the key attestation certificate contains the [RFC5280] basic constraints extension then it MUST have the `cA` boolean set to false.
+If the key attestation certificate contains the [RFC5280] Basic Constraints extension then it MUST have the `cA` boolean set to false.
 
 No significance is attached to the subject field of a key attestation certificate.
 
 Constraints:
 
 - A verifier MUST reject any key attestation certificate whose device identity as indicated in the `vendor`, `model` and `serial` fields does not match the values from the device identity certificate.
-- A verifier MUST reject any key attestation certificate whose policy is not in their list of acceptable policies.
+- A verifier MUST reject any key attestation certificate which does not contain exactly one [RFC5280] Extended Key Usage extension
+- A verifier MUST reject any key attestation certificate which permits operations inconsistent with its acceptable policies.
 
 ### Vendor-Specific Information
 
@@ -392,78 +390,89 @@ For example,
 it may be used to convey information about how the key was generated
 or a vendor-specific description of the policies that govern its use.
 
+# Key Usage {#sec-key-use-policies}
 
-# Key Use Policies {#sec-key-use-policies}
+Key attestation certificates contain an [RFC5280] s4.2.1.12 Extended Key Usage extension
+describing how the device will permit the key to be used.
 
-Key attestation certificates contain object identifiers describing the policies that the device will enforce upon the device's use of the application key.
-For example `id-policy-signature-only` indicates that the key may only be used to make signatures
-(and not to decrypt, as would be possible for an RSA key).
+The standard ExtendedKeyUsage purposes defined in [RFC5280] are not necessarily suitable in this context. For example the standard ExtendedKeyUsage OIDs are also not necessarily suitable. For example the device may have no information about whether a signing key is intended to be used for server authentication, client authentication, or
+any other application of digital signatures.
+For this reason an additional set of key usage purposes are defined here.
 
-*(MikeO: nitpick I would say "describing policies surrounding the use of the application key." I'm just thinking that, for example, the device can't control whether some dumb client decides to encrypt for your RSA sig-only key, so in that case the policy OID is as much for the client as for the device itself. Also has "application key" been defined in this document, or should we use one of the existing terms?)*.
+~~~ ASN.1
+id-Signature       OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1613 }
+-- the device will generate signatures with the key
 
-*RJK: I've clarified that it's for the private half of the application key, so we're not claiming we can control encrypt/verify. Leaving this open for now to check that's what you mneant.
+id-Decryption      OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1614 }
+-- the device will decrypt messages with the key and return the plaintext
 
-*MikeO: I've changed it again from "... enforce upon the use of the private half of the application key" to "... enforce upon the decive's use of the application key". Is that ok?*
+id-KeyAgreement    OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1615 }
+-- the device will use the key for key agreement
 
-*(MikeO: I wonder if we could just borrow and tweak wording from RFC 5280's Policy OIDs section:
-   In a key attestation certificate, policy object identifiers indicate
-   the policy under which the certificate has been issued and the
-   purposes for which the certificate may be used. 
+id-KeyTransport    OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1616 }
+-- the device will use the key for key transport 
 
-   ... these are placed within the `ApplicationKeyInformation` extension of the key attestation certificate, and not it its `certificatePolicies extension (cite 5280 4.2.1.4) because ...
-)*
+id-Recoverable     OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1612 }
+-- the key is can be recovered under administrative authorization
+~~~
 
-Note that these are OIDs describing policies within the key attestation ecosystem and are unrelated to the certificate policy OIDs defined in [RFC5280] section 4.2.1.4.
+> EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
-*(MikeO: it seems weird to say "These are unrelated to X.509 policy OIDs", and then give the example `id-policy-signature-only` which, at first glance, looks like it's basically an X.509 KeyUsage.)*
+> EDNOTE: We should consult particurly with CAs to see if there are other properties that would be beneficial to include in this list.
 
-*RJK: I see where you're coming from - I'll have a look at what we can do with KeyUsage, and come back to the other stuff about key policies if nothing else changes.
 
-## Key Use Policy Variants
+Constraints:
 
-Each of the policies described below has two variants.
+- If the device does not include `id-Signature` in the list of key use purposes then it MUST NOT generate signatures with the key.
+- If the device does not include `id-Decryption` in the list of key use purposes then it MUST NOT decrypt ciphertexts with the key.
+- If the device does not include `id-KeyAgreement` in the list of key use purposes then it MUST NOT use the key for key agreement.
+- If the device does not include `id-KeyTransport` in the list of key use purposes then it MUST NOT use the key for key transport.
+- If the device does not include `id-Recoverable` in the list of key use purposes then it MUST NOT permit recovery operations on the key.
 
-1. In the first, the policy means that a key may be used only in certain ways,
-and this cannot be overidden even by an administrator.
+## Distinctions between Key Use Policies
 
-2. In the second, the policy means that a key may normally be used only in certain ways,
-but that an authorized administrator may override this in some way
-(for example, in order to facilitate disaster recovery).
+- Decryption means using the key to decrypt a ciphertext and returning the plaintext to the caller, outside the device
+- Key Transport means using the key to decrypt a ciphertext and using the plaintext as key material, managed by the device
+- Key Agreement means using the key to agree a secret shared with another party, as prelude to further secure communication
 
-For example, for a CA processing a key attestation bundle in a certificate request, normally only the first variant (no administrative override) would be acceptable.
-If the application key is lost then the application key owner can be expected
-to generate a new key and certify it.
-There is no need to recover the old key.
+## Recoverable Keys
 
-*(MikeO: I'm not sure I see the connection between the last two sentences and the first one above. Maybe need to make the connection clearer between losing your key, and key use policies, like mention above that non-exportability is one of the important policies?)
+The `id-Recoverable` key use purpose indicates that the policies controlling use of the key may
+be modified by a suitably authorized administrator.
+This may be necessary, for example, to ensure that the key remains available for use
+even when an authentication token is lost or destroyed.
 
-In other use cases, the weaker policy may be more appropriate.
+The scope of possible modifications, and the kind of authorization required,
+are intentionally vague.
 
-## Signature-Only Policy
+See {{sec-security-recovery}} for further discussion.
 
-This policy is identified by `id-policy-signature-only`.
-It means that the private key may only be used for signature, and MAY NOT be exported in plaintext outside the device.
+## Key Protection
 
-*(MikeO: for clarity, maybe name this `id-keyattest-policy-sig-non-exportable` or something like that?)*
+These key use purposes are not intended to describe how applications keys is protected by the device.
+For example one device may protect keys by maintaining them inside a hardended boundary
+at all times;
+another may allow keys to be used across multiple devices
+by encrypting them under a shared master key,
+or by sharing them with other authorized devices via a secure channel.
 
-## Signature-Only Policy with Administrator Override
-
-This policy is identified by `TODO`.
-It means that the private key may normally only be used for signature *(MikeO: and MAY NOT be exported?)*,
-but that an authorized administrator may override this in some way.
+Provided the device is able to guarantee that the key use policy it signs will be honored,
+the mechanism is uses to protect application keys is not relevant.
 
 ## Vendor-Defined Key Use Policies
 
-A vendor may define policies outside the list described in the list document,
+A vendor may define key use policies outside the list above,
 for example reflecting policies not envisaged by this document
 or to cover device-specific functionality.
-For example they may describe a policy in terms of their device's proprietary policy or access control syntax#
+For example they may describe a policy in terms of their device's proprietary policy or access control syntax
 and publish an OID reflecting that policy.
+
 A verifier MUST NOT accept such a vendor-defined policy unless they fully understand the intended meaning.
-
-*(MikeO: This description reinforces a question I asked above about whether this should allow a list of policies?)*
-
-*RJK: Probably yes, then we don't have to have a sign-and-decrypt policy.
 
 # Embedding Key Attestations in Certification Requests {#sec-embedding}
 
@@ -518,7 +527,6 @@ The following Object Identifiers are to be assigned by IANA:
 id-device-information OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1567 }
 
-
 id-device-subkey-information OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1568 }
 
@@ -528,12 +536,26 @@ id-application-key-information OBJECT IDENTIFIER ::=
 id-attestation-bundle OBJECT IDENTIFIER ::=
         { 1 3 6 1 4 1 54392 5 1571 }
 
-id-policy-signature-only OBJECT IDENTIFIER ::=
-        { 1 3 6 1 4 1 54392 5 1570 }
+id-Signature       OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1613 }
+
+id-Decryption      OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1614 }
+
+id-KeyAgreement    OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1615 }
+
+id-KeyTransport    OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1616 }
+
+id-Recoverable     OBJECT IDENTIFIER ::=
+        { 1 3 6 1 4 1 54392 5 1612 }
 ~~~
 
 
 > TODO: suggest to IANA which public arc we want these in (these are just placeholders).
+
+> TODO update for our new EKU OIDs
 
 *RJK: the OIDs are assigned by a free OID assignment service. If I can have something under Entrust then I'll replace them with that.
 
@@ -573,19 +595,24 @@ In all of these models the same set of checks must be done, but in the first two
 The advantage of the later models is that they are more robust against the caller ommitting some of the necessary checks.
 For a publicly available API this robustness is particularly appropriate.
 
-## Policies with Administrator Override
+## Recoverable Keys {#sec-security-recovery}
 
-No attempt is made to define the scope of administrator override in policies which include it.
+The definition of recoverability is intentionally vague.
 Depending on the device it may mean that,
-for example, a signature-only RSA key could additional be given decrypt permission,
-or it could mean that private key material could be exploited in plaintext.
-The range of possibilities is to broad to tie down in a device-independent specification.
+for example, a signature-only RSA key could additionally be given decrypt permission,
+or it could mean that private key material could be extracted in plaintext.
+The range of possibilities is too broad to tie down in a device-independent specification.
 
 It should be noted that placing trust in a key does mean generally placing trust in the operators and administrators
-of the device that contains it, even without any possibilty of administrator override of the policy governing its use.
-For example there is nothing in the signature-only policy to prevent a key owner exposing a signature oracle for their key,
+of the device that contains it, even without any possibility of administrator override of the policy governing its use.
+For example, even if a key is not recoverable, there is nothing to prevent a key owner exposing a signature oracle for their key,
 allowing anyone to sign with it.
-In other words, verifiers should not place undue weight on the distinction between the two classes of policy.
+As such, if the key owner and the device administrator belong to the same organization,
+and have aligned priorities, there is not much practical difference between recoverable and non-recoverable keys.
+
+However, in the example where a device is owned and managed by a service provider but leased to an end user,
+the key owner and the device administrators belong to separate organizations and have different priorities.
+In that case a verifier may prefer to reject recoverable keys.
 
 ## Uniqueness of Keys
 
@@ -652,9 +679,6 @@ id-attestation-bundle OBJECT IDENTIFIER ::=
 
 AttestationBundle ::= SEQUENCE OF Certificate 
 
-
-id-policy-signature-only OBJECT IDENTIFIER ::=
-        { 1 3 6 1 4 1 54392 5 1570 }
 
 ~~~
 
