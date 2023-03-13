@@ -2,7 +2,7 @@
 title: PKIX Key Attestation Format
 abbrev: PKIX Key Attestation
 # <!-- EDNOTE: Edits the draft name -->
-docname: draft-ounsworth-pkix-key-attestation-01
+docname: draft-ounsworth-pkix-key-attestation-02
 
 # <!-- stand_alone: true -->
 ipr: trust200902
@@ -693,7 +693,7 @@ AttestationBundle ::= SEQUENCE OF Certificate
 # Contributors and Acknowledgements
 This document incorporates contributions and comments from a large group of experts. The Editors would especially like to acknowledge the expertise and tireless dedication of the following people, who attended many long meetings and generated millions of bytes of electronic mail and VOIP traffic over the past year in pursuit of this document:
 
-... list of helpful people ...
+Chris Trufan (Entrust).
 
 We are grateful to all, including any contributors who may have
 been inadvertently omitted from this list.

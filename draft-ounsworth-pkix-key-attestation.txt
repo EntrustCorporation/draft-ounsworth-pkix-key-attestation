@@ -13,17 +13,17 @@ Expires: 14 September 2023                             Entrust - nCipher
 
 
                       PKIX Key Attestation Format
-                draft-ounsworth-pkix-key-attestation-01
+                draft-ounsworth-pkix-key-attestation-02
 
 Abstract
 
    This document describes syntax for conveying key origin attestation
    information to a Certification Authority (CA) or other entity, so
-   that they may decide how much trust to place in the management
-   private of the key, for example to support a decision about whether
-   to issue a certificate.  In contrast to other key attestation
-   formats, the one defined in this document requires only ASN.1 and the
-   standard PKIX modules.
+   that they may decide how much trust to place in the management of the
+   private key.  For example, a reliant party may use this information
+   to support a decision about whether to issue a certificate.  In
+   contrast to other key attestation formats, the one defined in this
+   document requires only ASN.1 and the standard PKIX modules.
 
 About This Document
 
@@ -105,7 +105,7 @@ Table of Contents
      5.1.  Distinctions between Key Use Policies . . . . . . . . . .  13
      5.2.  Recoverable Keys  . . . . . . . . . . . . . . . . . . . .  13
      5.3.  Key Protection  . . . . . . . . . . . . . . . . . . . . .  13
-     5.4.  Vendor-Defined Key Use Policies . . . . . . . . . . . . .  13
+     5.4.  Vendor-Defined Key Use Policies . . . . . . . . . . . . .  14
 
 
 
@@ -115,10 +115,10 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
 
    6.  Embedding Key Attestations in Certification Requests  . . . .  14
-   7.  Implementation Considerations . . . . . . . . . . . . . . . .  14
+   7.  Implementation Considerations . . . . . . . . . . . . . . . .  15
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-     9.1.  Key Use Constraints . . . . . . . . . . . . . . . . . . .  15
+     9.1.  Key Use Constraints . . . . . . . . . . . . . . . . . . .  16
      9.2.  Verification Model  . . . . . . . . . . . . . . . . . . .  16
      9.3.  Recoverable Keys  . . . . . . . . . . . . . . . . . . . .  17
      9.4.  Uniqueness of Keys  . . . . . . . . . . . . . . . . . . .  17
@@ -133,7 +133,7 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
 1.  Introduction
 
-   Key attestion refers to the originator of a cryptographic key pair
+   Key attestation refers to the originator of a cryptographic key pair
    providing information about the provenance of that key pair, in a
    manner that can be cryptographically verified.  The information
    provided may include, for example, the model and identity of the
@@ -205,10 +205,10 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
    It can be used for one of two purposes:
 
-   *  to certify device identity keys (see section Section 3.3) by
-      signing device identity certificates (see section Section 4.3)
+   *  To certify device identity keys (see Section 3.3) by signing
+      device identity certificates (see Section 4.3)
 
-   *  to certify further intermediate CA keys
+   *  To certify further intermediate CA keys
 
    The exact configuration and management of trust anchor keys and
    intermediate CA keys is beyond the scope of this document.  An
@@ -230,11 +230,11 @@ Internet-Draft            PKIX Key Attestation                March 2023
    be impossible for a manufacturer to know when a device has been
    retired from use.  Therefore:
 
-   *  an intermediate CA need not track and public revocation
+   *  An intermediate CA need not track and public revocation
       information
 
-   *  intermediate CA keys MAY have a expiration date of 99991231235959Z
-      ([RFC5280] section 4.1.2.5).
+   *  Intermediate CA keys MAY have an expiration date of
+      99991231235959Z ([RFC5280] section 4.1.2.5).
 
    Constraints:
 
@@ -251,11 +251,11 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
    It can be used for one of two purposes:
 
-   *  to sign key attestations directly
+   *  To sign key attestations directly
 
-   *  to sign device delegation certificates (see section Section 4.4),
-      which are used to certify device certification subkeys (see
-      section Section 3.4).
+   *  To sign device delegation certificates (see Section 4.4), which
+      are used to certify device certification subkeys (see
+      Section 3.4).
 
    Constraints:
 
@@ -270,8 +270,8 @@ Internet-Draft            PKIX Key Attestation                March 2023
    or used for any purpose other than the ones listed below.  Depending
    on the device architecture, it may also be limited to a particular
    context or partition of the device; in this case it is assumed to be
-   unique to the particular context.  A device certification key may
-   have any lifetime, from single use to the lifetime of the device.
+   unique to the context.  A device certification key may have any
+   lifetime, from single use to the lifetime of the device.
 
    It can be used for one of two purposes:
 
@@ -282,16 +282,15 @@ Ounsworth, et al.       Expires 14 September 2023               [Page 5]
 Internet-Draft            PKIX Key Attestation                March 2023
 
 
-   *  to sign key attestations directly
+   *  To sign key attestations directly
 
-   *  to sign further device delegation certificates.
+   *  To sign further device delegation certificates.
 
    Constraints:
 
    *  A device certification subkey MUST NOT be used for any purpose
-      other than signing key attestation certificates (see section
-      Section 4.5) or device delegation certificates (see section
-      Section 4.4).
+      other than signing key attestation certificates (see Section 4.5)
+      or device delegation certificates (see Section 4.4).
 
 3.5.  Application Key
 
@@ -329,7 +328,8 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
    Specifically, a key attestation consists of:
 
-   *  Zero or more intermediate certificates (see section Section 4.2)
+   *  Zero or more intermediate certificates (see Section 4.2)
+
 
 
 
@@ -338,12 +338,11 @@ Ounsworth, et al.       Expires 14 September 2023               [Page 6]
 Internet-Draft            PKIX Key Attestation                March 2023
 
 
-   *  Exactly one device identity certificate (see section Section 4.3)
+   *  Exactly one device identity certificate (see Section 4.3)
 
-   *  Zero or more device delegation certificates (see section
-      Section 4.4)
+   *  Zero or more device delegation certificates (see Section 4.4)
 
-   *  Exactly one key attestation certificate (see section Section 4.5)
+   *  Exactly one key attestation certificate (see Section 4.5)
 
    The first certificate (whether it is an intermediate certificate or
    the device identity certificate) is signed by a trust anchor key.  A
@@ -382,8 +381,9 @@ Internet-Draft            PKIX Key Attestation                March 2023
    to the [RFC5280] interpretation this field.  Therefore, if it is
    present, it must permit sufficiently many following certificates to
    account for certificates signed by the device i.e. device identity
-   certificates (see section Section 4.3) and device delegation
-   certificates (see section Section 4.4).
+   certificates (see Section 4.3) and device delegation certificates
+   (see Section 4.4).
+
 
 
 
@@ -464,10 +464,10 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
    *  Two distinct devices MUST NOT have the same device identity key.
 
-   As a matter of interpretation, it is envisaged that the uniquess
+   As a matter of interpretation, it is envisaged that the uniqueness
    requirement on device identity keys (and all other keys in this
-   specification) is achieved by generating keys of adequate size, using
-   a cryptographically secure pseudorandom number generators, rather
+   specification) is achieved by generating keys of adequate size and
+   using cryptographically secure pseudorandom number generators, rather
    than by maintaining an industry-wide database of all device identity
    keys.
 
@@ -550,7 +550,7 @@ Internet-Draft            PKIX Key Attestation                March 2023
    information.  This contains the vendor identity, device model, device
    serial and vendor-specific information.
 
-   A key attestation certicate MUST contain an [RFC5280] Extended Key
+   A key attestation certificate MUST contain an [RFC5280] Extended Key
    Usage extension documenting how the device will permit the key to be
    used.  See Section 5 for more details.
 
@@ -650,8 +650,9 @@ Internet-Draft            PKIX Key Attestation                March 2023
       prototyping.  We are requesting IANA to assign a permanent OID,
       see Section 8.
 
-      EDNOTE: We should consult particurly with CAs to see if there are
-      other properties that would be beneficial to include in this list.
+      EDNOTE: We should consult particularly with CAs to see if there
+      are other properties that would be beneficial to include in this
+      list.
 
    Constraints:
 
@@ -664,8 +665,7 @@ Internet-Draft            PKIX Key Attestation                March 2023
    *  If the device does not include id-KeyAgreement in the list of key
       use purposes then it MUST NOT use the key for key agreement.
 
-   *  If the device does not include id-KeyTransport in the list of key
-      use purposes then it MUST NOT use the key for key transport.
+
 
 
 
@@ -673,6 +673,9 @@ Ounsworth, et al.       Expires 14 September 2023              [Page 12]
 
 Internet-Draft            PKIX Key Attestation                March 2023
 
+
+   *  If the device does not include id-KeyTransport in the list of key
+      use purposes then it MUST NOT use the key for key transport.
 
    *  If the device does not include id-Recoverable in the list of key
       use purposes then it MUST NOT permit recovery operations on the
@@ -706,7 +709,7 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
    These key use purposes are not intended to describe how applications
    keys is protected by the device.  For example one device may protect
-   keys by maintaining them inside a hardended boundary at all times;
+   keys by maintaining them inside a hardened boundary at all times;
    another may allow keys to be used across multiple devices by
    encrypting them under a shared master key, or by sharing them with
    other authorized devices via a secure channel.
@@ -715,13 +718,10 @@ Internet-Draft            PKIX Key Attestation                March 2023
    signs will be honored, the mechanism is uses to protect application
    keys is not relevant.
 
-5.4.  Vendor-Defined Key Use Policies
 
-   A vendor may define key use policies outside the list above, for
-   example reflecting policies not envisaged by this document or to
-   cover device-specific functionality.  For example they may describe a
-   policy in terms of their device's proprietary policy or access
-   control syntax and publish an OID reflecting that policy.
+
+
+
 
 
 
@@ -729,6 +729,14 @@ Ounsworth, et al.       Expires 14 September 2023              [Page 13]
 
 Internet-Draft            PKIX Key Attestation                March 2023
 
+
+5.4.  Vendor-Defined Key Use Policies
+
+   A vendor may define key use policies outside the list above, for
+   example reflecting policies not envisaged by this document or to
+   cover device-specific functionality.  For example they may describe a
+   policy in terms of their device's proprietary policy or access
+   control syntax and publish an OID reflecting that policy.
 
    A verifier MUST NOT accept such a vendor-defined policy unless they
    fully understand the intended meaning.
@@ -770,14 +778,6 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
    AttestationBundle ::= SEQUENCE OF Certificate
 
-      EDNOTE: this is a temporary OID for the purposes of prototyping.
-      We are requesting IANA to assign a permanent OID, see Section 8.
-
-7.  Implementation Considerations
-
-   ... TODO document any (non-security) GOTCHAs ...
-
-
 
 
 
@@ -785,6 +785,13 @@ Ounsworth, et al.       Expires 14 September 2023              [Page 14]
 
 Internet-Draft            PKIX Key Attestation                March 2023
 
+
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 8.
+
+7.  Implementation Considerations
+
+   ... TODO document any (non-security) GOTCHAs ...
 
 8.  IANA Considerations
 
@@ -827,13 +834,6 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
 9.  Security Considerations
 
-9.1.  Key Use Constraints
-
-   The key use constraints describe above are essential.  For example if
-   a device identity key could be used by a user to sign arbitrary
-   messages, that user could forge key attestations.
-
-
 
 
 
@@ -842,9 +842,15 @@ Ounsworth, et al.       Expires 14 September 2023              [Page 15]
 Internet-Draft            PKIX Key Attestation                March 2023
 
 
+9.1.  Key Use Constraints
+
+   The key use constraints describe above are essential.  For example if
+   a device identity key could be used by a user to sign arbitrary
+   messages, that user could forge key attestations.
+
 9.2.  Verification Model
 
-   An API that verifies a key attestion may be designed in a number of
+   An API that verifies a key attestation may be designed in a number of
    different ways.
 
    1.  It may accept just a key attestation.  It will verify it, and
@@ -857,7 +863,7 @@ Internet-Draft            PKIX Key Attestation                March 2023
        caller is running in a context where there are multiple copies of
        the application key (for example, the certification request
        verification described in Section 6 it must also check that all
-       copies of the appcalition key match.
+       copies of the application key match.
 
    2.  It may accept a key attestation, trust anchor, vendor identity
        and at least one acceptable policy.  It will verify the key
@@ -866,7 +872,7 @@ Internet-Draft            PKIX Key Attestation                March 2023
        check that the policy is acceptable.  It will return either an
        error indicator or the application key.  If the caller is running
        in a context where there are multiple copies of the application
-       key then it must also check that all copies of the appcalition
+       key then it must also check that all copies of the application
        key match.  Apart from that it can use the application key
        without further checks.
 
@@ -884,12 +890,6 @@ Internet-Draft            PKIX Key Attestation                March 2023
    advantage of the later models is that they are more robust against
    the caller ommitting some of the necessary checks.  For a publicly
    available API this robustness is particularly appropriate.
-
-
-
-
-
-
 
 
 
@@ -986,7 +986,7 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
 Appendix A.  Samples
 
-   ... either place samples here inline, or reference a github.  I've
+   ... either place samples here inline, or reference on Github.  I've
    got a script I've used in other I-Ds to inline include files, if
    that's useful here.
 
@@ -1075,7 +1075,7 @@ Appendix D.  Contributors and Acknowledgements
    electronic mail and VOIP traffic over the past year in pursuit of
    this document:
 
-   ... list of helpful people ...
+   Chris Trufan (Entrust).
 
    We are grateful to all, including any contributors who may have been
    inadvertently omitted from this list.
