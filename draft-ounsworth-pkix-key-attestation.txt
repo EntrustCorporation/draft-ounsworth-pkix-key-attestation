@@ -8,7 +8,7 @@ Intended status: Standards Track                           R. Kettlewell
 Expires: 14 September 2023                             Entrust - nCipher
                                                             B. Couillard
                                                                 JP Fiset
-                                                                CRYPTO4A
+                                                                Crypto4A
                                                            13 March 2023
 
 
@@ -1105,7 +1105,7 @@ Authors' Addresses
 
 
    Bruno Couillard
-   CRYPTO4A
+   Crypto4A
    1550 Laperriere Ave
    Ottawa, On  K1Z 7T2
    Canada
@@ -1123,7 +1123,7 @@ Internet-Draft            PKIX Key Attestation                March 2023
 
 
    Jean-Pierre Fiset
-   CRYPTO4A
+   Crypto4A
    1550 Laperriere Ave
    Ottawa, On  K1Z 7T2
    Canada

@@ -50,7 +50,7 @@ author:
     -
       ins: B. Couillard
       name: Bruno Couillard
-      org: CRYPTO4A
+      org: Crypto4A
       street: 1550 Laperriere Ave
       city: Ottawa, On
       country: Canada
@@ -60,7 +60,7 @@ author:
     -
       ins: JP Fiset
       name: Jean-Pierre Fiset
-      org: CRYPTO4A
+      org: Crypto4A
       street: 1550 Laperriere Ave
       city: Ottawa, On
       country: Canada
