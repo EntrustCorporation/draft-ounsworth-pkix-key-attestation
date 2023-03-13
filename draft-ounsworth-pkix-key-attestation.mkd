@@ -96,8 +96,9 @@ informative:
 --- abstract
 
 This document describes syntax for conveying key origin attestation information to a Certification Authority (CA) or other entity,
-so that they may decide how much trust to place in the management private of the key,
-for example to support a decision about whether to issue a certificate. In contrast to other key attestation formats, the one defined in this document requires only ASN.1 and the standard PKIX modules.
+so that they may decide how much trust to place in the management of the private key. For example, a reliant party may
+use this information to support a decision about whether to issue a certificate. In contrast to other key attestation 
+formats, the one defined in this document requires only ASN.1 and the standard PKIX modules.
 
 <!-- End of Abstract -->
 
@@ -105,7 +106,7 @@ for example to support a decision about whether to issue a certificate. In contr
 
 # Introduction {#sec-intro}
 
-Key attestion refers to the originator of a cryptographic key pair providing information about the provenance of that key pair,
+Key attestation refers to the originator of a cryptographic key pair providing information about the provenance of that key pair,
 in a manner that can be cryptographically verified.
 The information provided may include, for example, the model and identity of the device that created the key pair
 and any policies that may be enforced upon the use of the private key, contained in a cryptographic envelope that can be chained to a manufacturing public key of the device vendor.
@@ -142,8 +143,8 @@ An intermediate CA key is a signing key held by a vendor and certified by that v
 
 It can be used for one of two purposes:
 
-- to certify device identity keys (see section {{sec-devidkey}}) by signing device identity certificates (see section {{sec-ka-dic}})
-- to certify further intermediate CA keys
+- To certify device identity keys (see {{sec-devidkey}}) by signing device identity certificates (see {{sec-ka-dic}})
+- To certify further intermediate CA keys
 
 The exact configuration and management of trust anchor keys and intermediate CA keys is beyond the scope of this document.
 An example configuration is that a vendor have an offline trust anchor,
@@ -154,8 +155,8 @@ It may be impossible recertify a device after manufacture,
 and it may be impossible for a manufacturer to know when a device has been retired from use.
 Therefore:
 
-- an intermediate CA need not track and public revocation information
-- intermediate CA keys MAY have a expiration date of 99991231235959Z ([RFC5280] section 4.1.2.5).
+- An intermediate CA need not track and public revocation information
+- Intermediate CA keys MAY have an expiration date of 99991231235959Z ([RFC5280] section 4.1.2.5).
 
 Constraints:
 
@@ -170,8 +171,8 @@ It is envisaged that this key will persist for the lifetime of the device.
 
 It can be used for one of two purposes:
 
-- to sign key attestations directly
-- to sign device delegation certificates (see section {{sec-ka-ddc}}), which are used to certify device certification subkeys (see section {{sec-devsubkeys}}).
+- To sign key attestations directly
+- To sign device delegation certificates (see {{sec-ka-ddc}}), which are used to certify device certification subkeys (see {{sec-devsubkeys}}).
 
 Constraints:
 
@@ -184,17 +185,17 @@ It is assumed that the key is unique to the device and cannot be extracted
 or used for any purpose other than the ones listed below.
 Depending on the device architecture,
 it may also be limited to a particular context or partition of the device;
-in this case it is assumed to be unique to the particular context.
+in this case it is assumed to be unique to the context.
 A device certification key may have any lifetime, from single use to the lifetime of the device.
 
 It can be used for one of two purposes:
 
-- to sign key attestations directly
-- to sign further device delegation certificates.
+- To sign key attestations directly
+- To sign further device delegation certificates.
 
 Constraints:
 
-- A device certification subkey MUST NOT be used for any purpose other than signing key attestation certificates (see section {{sec-ka-kac}}) or device delegation certificates (see section {{sec-ka-ddc}}).
+- A device certification subkey MUST NOT be used for any purpose other than signing key attestation certificates (see {{sec-ka-kac}}) or device delegation certificates (see {{sec-ka-ddc}}).
 
 ## Application Key {#sec-appkey}
 
@@ -221,10 +222,10 @@ A key attestation consists of a nonempty sequence of [RFC5280] certificates, con
 
 Specifically, a key attestation consists of:
 
-* Zero or more intermediate certificates (see section {{sec-ka-intermediate}})
-* Exactly one device identity certificate (see section {{sec-ka-dic}})
-* Zero or more device delegation certificates (see section {{sec-ka-ddc}})
-* Exactly one key attestation certificate  (see section {{sec-ka-kac}})
+- Zero or more intermediate certificates (see {{sec-ka-intermediate}})
+- Exactly one device identity certificate (see {{sec-ka-dic}})
+- Zero or more device delegation certificates (see {{sec-ka-ddc}})
+- Exactly one key attestation certificate  (see {{sec-ka-kac}})
 
 The first certificate
 (whether it is an intermediate certificate or the device identity certificate)
@@ -253,7 +254,7 @@ It MAY have the [RFC5280] `pathLenConstraint`,
 and there is no change to the [RFC5280] interpretation this field.
 Therefore, if it is present,
 it must permit sufficiently many following certificates to account for certificates signed by the device
-i.e. device identity certificates (see section {{sec-ka-dic}}) and device delegation certificates (see section {{sec-ka-ddc}}).
+i.e. device identity certificates (see {{sec-ka-dic}}) and device delegation certificates (see {{sec-ka-ddc}}).
 
 It MUST NOT have any of the extensions defined in the following sections ({{sec-ka-dic}}, {{sec-ka-ddc}} and {{sec-ka-kac}}).
 A verifier may detect an intermediate CA delegation by the presence of a true `cA` boolean and the absence of these extensions.
@@ -302,10 +303,10 @@ Constraints:
 - Two distinct devices MUST NOT have the same device identity key.
 
 As a matter of interpretation,
-it is envisaged that the uniquess requirement on device identity keys
+it is envisaged that the uniqueness requirement on device identity keys
 (and all other keys in this specification)
-is achieved by generating keys of adequate size,
-using a cryptographically secure pseudorandom number generators,
+is achieved by generating keys of adequate size and
+using cryptographically secure pseudorandom number generators,
 rather than by maintaining an industry-wide database of all device identity keys.
 
 ## Device Delegation Certificate  {#sec-ka-ddc}
@@ -357,7 +358,7 @@ A key attestation certificate MUST contain a `ApplicationKeyInformation` extensi
 identified by `id-application-key-information`.
 This contains the vendor identity, device model, device serial and vendor-specific information.
 
-A key attestation certicate MUST contain an [RFC5280] Extended Key Usage extension
+A key attestation certificate MUST contain an [RFC5280] Extended Key Usage extension
 documenting how the device will permit the key to be used.
 See {{sec-key-use-policies}} for more details.
 
@@ -423,7 +424,7 @@ id-Recoverable     OBJECT IDENTIFIER ::=
 
 > EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
-> EDNOTE: We should consult particurly with CAs to see if there are other properties that would be beneficial to include in this list.
+> EDNOTE: We should consult particularly with CAs to see if there are other properties that would be beneficial to include in this list.
 
 
 Constraints:
@@ -455,7 +456,7 @@ See {{sec-security-recovery}} for further discussion.
 ## Key Protection
 
 These key use purposes are not intended to describe how applications keys is protected by the device.
-For example one device may protect keys by maintaining them inside a hardended boundary
+For example one device may protect keys by maintaining them inside a hardened boundary
 at all times;
 another may allow keys to be used across multiple devices
 by encrypting them under a shared master key,
@@ -572,18 +573,18 @@ that user could forge key attestations.
 
 ## Verification Model
 
-An API that verifies a key attestion may be designed in a number of different ways.
+An API that verifies a key attestation may be designed in a number of different ways.
 
 
 1. It may accept just a key attestation.
 It will verify it, and return either an error indicator or the public trust anchor key, vendor identity, public application key, and the policy governing is use.
 The caller must check at least that the trust anchor key is acceptable; the vendor identity from the key attestation matches the one associated with the trust anchor; and that the policy is acceptable, before using the application key.
-If the caller is running in a context where there are multiple copies of the application key (for example, the certification request verification described in {{sec-embedding}} it must also check that all copies of the appcalition key match.
+If the caller is running in a context where there are multiple copies of the application key (for example, the certification request verification described in {{sec-embedding}} it must also check that all copies of the application key match.
 
 2. It may accept a key attestation, trust anchor, vendor identity and at least one acceptable policy.
 It will verify the key attestation using the trust anchor, and check that the vendor identities in the key attestation match the trust anchor, and check that the policy is acceptable.
 It will return either an error indicator or the application key.
-If the caller is running in a context where there are multiple copies of the application key then it must also check that all copies of the appcalition key match.
+If the caller is running in a context where there are multiple copies of the application key then it must also check that all copies of the application key match.
 Apart from that it can use the application key without further checks.
 
 3. It may accept a key attestation, trust anchor, vendor identity, application key and at least one acceptable policy.
@@ -630,7 +631,7 @@ it's much more likely that a collision indicates a failure in the key generation
 
 # Samples {#appdx-samples}
 
-... either place samples here inline, or reference a github.
+... either place samples here inline, or reference on Github.
 I've got a script I've used in other I-Ds to inline include files, if that's useful here.
 
 
