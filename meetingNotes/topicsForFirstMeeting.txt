@@ -1,0 +1,1 @@
+- Will adopting this require a full hardware cycle, or is it possible to "translate" / "reissue" current key attestation chains into a standardized format?
