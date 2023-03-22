@@ -12,5 +12,13 @@ JP Fiset
 Forntanix
 Sander Temme (pending confirmation of participation)
 
+i4p
+Rózsahegyi, Zsolt <zsolt.rozsahegyi@i4p.com>
+Ferenc Pető <ferenc.peto@i4p.com>
+
 Keyfactor
 Mike Agrenius Kushner <Mike.Kushner@keyfactor.com>
+
+Utimaco
+Dieter Bong <Dieter.Bong@utimaco.com>
+Christomer Meyer <Christopher.Meyer@utimaco.com>
