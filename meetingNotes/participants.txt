@@ -22,3 +22,6 @@ Mike Agrenius Kushner <Mike.Kushner@keyfactor.com>
 Utimaco
 Dieter Bong <Dieter.Bong@utimaco.com>
 Christomer Meyer <Christopher.Meyer@utimaco.com>
+
+
+Michael StJohns <msj@nthpermutation.com>
