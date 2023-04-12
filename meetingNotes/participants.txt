@@ -9,7 +9,7 @@ Crypto4A
 Bruno Couillard
 JP Fiset
 
-Forntanix
+Fortanix
 Sander Temme (pending confirmation of participation)
 
 i4p
