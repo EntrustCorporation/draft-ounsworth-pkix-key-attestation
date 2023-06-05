@@ -10,7 +10,8 @@ Bruno Couillard
 JP Fiset
 
 Fortanix
-Sander Temme (pending confirmation of participation)
+Sander Temme
+Jethro Beekman
 
 i4p
 Rózsahegyi, Zsolt <zsolt.rozsahegyi@i4p.com>
@@ -18,6 +19,7 @@ Ferenc Pető <ferenc.peto@i4p.com>
 
 Keyfactor
 Mike Agrenius Kushner <Mike.Kushner@keyfactor.com>
+Tomas Gustavsson
 
 Utimaco
 Dieter Bong <Dieter.Bong@utimaco.com>
@@ -25,3 +27,10 @@ Christomer Meyer <Christopher.Meyer@utimaco.com>
 
 
 Michael StJohns <msj@nthpermutation.com>
+Hannes Tschofenig
+Carl Wallace
+Michael Ricardson
+Tomofumi Okubo
+
+Optiv
+Olivier Couillard
